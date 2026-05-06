@@ -334,22 +334,23 @@
     /* ========================
        HAZE INVITE BUTTON
     ======================== */
-    /* Balão ao lado da cabeça do robô — desktop */
+    /* Balão ao lado direito da cabeça do robô — desktop */
     .haze-invite {
+      --invite-x: 0;
       position: absolute;
-      top: 28%;
-      left: 42%;
+      top: 25%;
+      left: clamp(52%, calc(50% + 170px), calc(100% - 300px));
       z-index: 10;
       cursor: pointer;
       opacity: 0;
-      transform: translateY(16px);
+      transform: translate(var(--invite-x), 16px);
       transition: opacity 0.6s ease, transform 0.6s ease;
       pointer-events: none;
     }
 
     .haze-invite.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translate(var(--invite-x), 0);
       pointer-events: auto;
     }
 
@@ -1371,6 +1372,17 @@
       #spline-section { height: 70svh; }
       .spline-text { left: 20px; bottom: 32px; }
       .spline-text-headline { font-size: clamp(22px, 6vw, 32px); }
+      .haze-invite {
+        --invite-x: 34px;
+        top: 23%;
+        left: 50%;
+      }
+      .haze-invite-text {
+        max-width: 176px;
+        padding: 16px 18px;
+      }
+      .invite-msg { font-size: 13px; }
+      .invite-cta { font-size: 8px; letter-spacing: 0.28em; }
 
       /* Marquee */
       .marquee-item { font-size: 9px; gap: 20px; padding: 0 20px; }
@@ -1426,6 +1438,10 @@
       .hero-title { font-size: 22vw; }
       .gooey-text { font-size: 9vw; }
       .contact-headline { font-size: 16vw; }
+      .haze-invite { --invite-x: 24px; }
+      .haze-invite-text { max-width: 160px; padding: 14px 16px; }
+      .invite-msg { font-size: 12px; }
+      .invite-cta { font-size: 7px; }
     }
   </style>
 </head>
