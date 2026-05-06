@@ -225,7 +225,7 @@
       font-weight: 600;
       letter-spacing: 0.45em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.6);
       margin-bottom: 40px;
       opacity: 0;
       animation: fadeUp 1s ease 0.3s forwards;
@@ -247,37 +247,12 @@
       font-weight: 300;
       letter-spacing: 0.35em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.65);
       margin-top: 36px;
       opacity: 0;
       animation: fadeUp 1s ease 1s forwards;
     }
 
-    .hero-scroll-indicator {
-      position: absolute;
-      bottom: 52px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      opacity: 0;
-      animation: fadeIn 1s ease 1.8s forwards;
-    }
-
-    .hero-scroll-line {
-      width: 1px;
-      height: 56px;
-      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.35));
-    }
-
-    .hero-scroll-label {
-      font-size: 8px;
-      letter-spacing: 0.35em;
-      color: rgba(255,255,255,0.25);
-      text-transform: uppercase;
-    }
 
     @keyframes blurFadeIn {
       from { opacity: 0; filter: blur(24px); transform: translateY(-12px); }
@@ -340,7 +315,7 @@
       font-weight: 600;
       letter-spacing: 0.4em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.6);
       margin-bottom: 12px;
     }
 
@@ -382,7 +357,7 @@
       font-weight: 600;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.5);
       flex-shrink: 0;
     }
 
@@ -417,7 +392,7 @@
       font-weight: 600;
       letter-spacing: 0.45em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.55);
       margin-bottom: 56px;
     }
 
@@ -462,7 +437,7 @@
       font-weight: 600;
       letter-spacing: 0.4em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.6);
       margin-bottom: 72px;
     }
 
@@ -497,7 +472,7 @@
       font-size: 15px;
       font-weight: 300;
       line-height: 1.85;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.7);
       margin-bottom: 28px;
     }
 
@@ -533,7 +508,7 @@
       font-size: 13px;
       font-weight: 300;
       line-height: 1.7;
-      color: rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.62);
     }
 
     /* ========================
@@ -568,7 +543,7 @@
       font-size: 14px;
       font-weight: 300;
       line-height: 1.8;
-      color: rgba(255,255,255,0.38);
+      color: rgba(255,255,255,0.65);
       padding-bottom: 6px;
     }
 
@@ -594,7 +569,7 @@
     .service-num {
       font-size: 10px;
       font-weight: 400;
-      color: rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.5);
       letter-spacing: 0.08em;
       min-width: 24px;
     }
@@ -663,7 +638,7 @@
     }
 
     .manifesto-dim {
-      color: rgba(255,255,255,0.3);
+      color: white;
       font-style: normal;
     }
 
@@ -671,7 +646,7 @@
       font-size: 9px;
       letter-spacing: 0.4em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.55);
     }
 
     /* ========================
@@ -714,7 +689,7 @@
       font-size: 13px;
       font-weight: 300;
       line-height: 1.7;
-      color: rgba(255,255,255,0.32);
+      color: rgba(255,255,255,0.62);
     }
 
     /* ========================
@@ -750,7 +725,7 @@
       font-size: 15px;
       font-weight: 300;
       line-height: 1.85;
-      color: rgba(255,255,255,0.38);
+      color: rgba(255,255,255,0.65);
     }
 
     .contact-actions {
@@ -795,7 +770,7 @@
 
     .footer-copy {
       font-size: 10px;
-      color: rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.5);
       letter-spacing: 0.1em;
     }
 
@@ -803,7 +778,7 @@
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.35em;
-      color: rgba(255,255,255,0.22);
+      color: rgba(255,255,255,0.5);
     }
 
     /* ========================
@@ -922,10 +897,6 @@
     <p class="hero-eyebrow">Agência de branding e identidade</p>
     <h1 class="hero-title">HAZE</h1>
     <p class="hero-tagline">Marcas feitas para permanecer</p>
-    <div class="hero-scroll-indicator">
-      <div class="hero-scroll-line"></div>
-      <span class="hero-scroll-label">Scroll</span>
-    </div>
   </section>
 
   <!-- SPLINE / ROBOT -->
@@ -1340,7 +1311,7 @@
       pixels = [];
 
       const line1 = 'DESIGN';
-      const line2w = ['IS', 'TIMELESS'];
+      const line2w = ['ATEMPORAL'];
 
       const w1raw  = wordWidth(line1, 1);
       const w2raw  = line2w.reduce((a, w) => a + wordWidth(w, 1) + WS, 0) - WS;
@@ -1356,7 +1327,8 @@
       buildPixels(line1, (W - wordWidth(line1, b)) / 2, sy, b);
       sy += h1 + gap;
 
-      let x2 = (W - (wordWidth(line2w[0], s) + WS * s + wordWidth(line2w[1], s))) / 2;
+      let totalW2 = line2w.reduce((acc, w, i) => acc + wordWidth(w, s) + (i < line2w.length - 1 ? WS * s : 0), 0);
+      let x2 = (W - totalW2) / 2;
       for (let wi = 0; wi < line2w.length; wi++) {
         buildPixels(line2w[wi], x2, sy, s);
         x2 += wordWidth(line2w[wi], s) + WS * s;
