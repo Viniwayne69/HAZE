@@ -332,6 +332,547 @@
     }
 
     /* ========================
+       HAZE INVITE BUTTON
+    ======================== */
+    /* Balão ao lado da cabeça do robô — desktop */
+    .haze-invite {
+      position: absolute;
+      top: 28%;
+      left: 42%;
+      z-index: 10;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      pointer-events: none;
+    }
+
+    .haze-invite.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .haze-invite:hover .haze-invite-text {
+      border-color: rgba(255,255,255,0.4);
+    }
+
+    .haze-invite-text {
+      position: relative;
+      background: rgba(0,0,0,0.75);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(12px);
+      padding: 20px 24px;
+      border-radius: 2px;
+      max-width: 240px;
+      transition: border-color 0.3s;
+    }
+
+    /* Ponteiro do balão apontando para a esquerda (robô) */
+    .haze-invite-text::before {
+      content: '';
+      position: absolute;
+      left: -8px;
+      top: 28px;
+      width: 0;
+      height: 0;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+      border-right: 8px solid rgba(255,255,255,0.2);
+    }
+
+    .haze-invite-text::after {
+      content: '';
+      position: absolute;
+      left: -6px;
+      top: 29px;
+      width: 0;
+      height: 0;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-right: 7px solid rgba(0,0,0,0.75);
+    }
+
+    .invite-name {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 8px;
+    }
+
+    .invite-msg {
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .invite-cta {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding-bottom: 2px;
+      display: inline-block;
+      transition: color 0.3s;
+    }
+
+    .haze-invite:hover .invite-cta { color: white; }
+
+    @media (max-width: 768px) {
+      .haze-invite { right: 16px; bottom: 20px; }
+      .haze-invite-text { max-width: 200px; }
+      .haze-invite-text::before,
+      .haze-invite-text::after { display: none; }
+      .invite-msg { font-size: 14px; }
+    }
+
+    /* ========================
+       HAZE MODAL
+    ======================== */
+    .haze-modal {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 1000;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .haze-modal.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .haze-modal-close {
+      position: absolute;
+      top: 32px;
+      right: 40px;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.4);
+      font-size: 22px;
+      cursor: pointer;
+      z-index: 10;
+      transition: color 0.3s;
+    }
+
+    .haze-modal-close:hover { color: white; }
+
+    .haze-modal-inner {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* ---- Robot Panel ---- */
+    .haze-modal-robot-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      padding: 60px 40px;
+    }
+
+    .haze-robot-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ---- CSS Robot ---- */
+    .haze-robot {
+      position: relative;
+      width: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Head */
+    .hr-head {
+      position: relative;
+      width: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 2;
+    }
+
+    .hr-antenna {
+      width: 3px;
+      height: 20px;
+      background: white;
+      border-radius: 2px;
+      margin-bottom: 2px;
+      position: relative;
+    }
+
+    .hr-antenna::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .hr-face {
+      width: 80px;
+      height: 70px;
+      background: white;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .hr-eyes {
+      display: flex;
+      gap: 14px;
+    }
+
+    .hr-eye {
+      width: 14px;
+      height: 14px;
+      background: black;
+      border-radius: 50%;
+      position: relative;
+      animation: robotEyeBlink 5s infinite;
+    }
+
+    .hr-eye::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 3px;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    @keyframes robotEyeBlink {
+      0%, 88%, 100% { transform: scaleY(1); }
+      92% { transform: scaleY(0.08); }
+    }
+
+    .hr-mouth {
+      width: 32px;
+      height: 10px;
+      border: 2px solid black;
+      border-top: none;
+      border-radius: 0 0 12px 12px;
+      transition: all 0.4s ease;
+    }
+
+    /* Body */
+    .hr-body {
+      width: 90px;
+      height: 80px;
+      background: white;
+      border-radius: 10px;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      position: relative;
+    }
+
+    .hr-chest {
+      width: 40px;
+      height: 30px;
+      border: 2px solid rgba(0,0,0,0.15);
+      border-radius: 6px;
+    }
+
+    /* Arms */
+    .hr-arm {
+      position: absolute;
+      top: 96px;
+      width: 20px;
+      height: 60px;
+      background: white;
+      border-radius: 10px;
+      transform-origin: top center;
+      z-index: 1;
+    }
+
+    .hr-arm-left  { left: -4px; transform: rotate(10deg); }
+    .hr-arm-right { right: -4px; transform: rotate(-10deg); }
+
+    .hr-forearm-left, .hr-forearm-right {
+      position: absolute;
+      bottom: -44px;
+      width: 18px;
+      height: 44px;
+      background: white;
+      border-radius: 9px;
+      transform-origin: top center;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .hr-hand {
+      position: absolute;
+      bottom: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    /* Legs */
+    .hr-legs {
+      display: flex;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .hr-leg {
+      width: 22px;
+      height: 44px;
+      background: white;
+      border-radius: 8px 8px 10px 10px;
+    }
+
+    /* ========================
+       ROBOT GESTURES
+    ======================== */
+
+    /* IDLE — gentle float */
+    .haze-robot { animation: robotFloat 3s ease-in-out infinite; }
+
+    @keyframes robotFloat {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    /* THINKING — left arm raised to chin */
+    .haze-robot.gesture-thinking { animation: robotFloat 3s ease-in-out infinite; }
+    .haze-robot.gesture-thinking .hr-arm-left { animation: armThinkRaise 0.5s ease forwards; }
+    .haze-robot.gesture-thinking .hr-arm-right { animation: armRelax 0.5s ease forwards; }
+
+    @keyframes armThinkRaise {
+      to { transform: rotate(-80deg) translateY(-20px); }
+    }
+
+    @keyframes armRelax {
+      to { transform: rotate(-10deg); }
+    }
+
+    /* HEART — both arms up forming heart */
+    .haze-robot.gesture-heart { animation: robotBounce 0.6s ease-in-out infinite alternate; }
+    .haze-robot.gesture-heart .hr-arm-left  { animation: armHeartLeft  0.5s ease forwards; }
+    .haze-robot.gesture-heart .hr-arm-right { animation: armHeartRight 0.5s ease forwards; }
+    .haze-robot.gesture-heart .hr-mouth { border-radius: 0 0 16px 16px; height: 14px; }
+
+    @keyframes robotBounce {
+      from { transform: translateY(0) scale(1); }
+      to   { transform: translateY(-6px) scale(1.04); }
+    }
+
+    @keyframes armHeartLeft {
+      to { transform: rotate(-120deg) translateX(8px); }
+    }
+
+    @keyframes armHeartRight {
+      to { transform: rotate(120deg) translateX(-8px); }
+    }
+
+    /* DANCE — sway side to side */
+    .haze-robot.gesture-dance { animation: robotDance 0.7s ease-in-out infinite alternate; }
+    .haze-robot.gesture-dance .hr-arm-left  { animation: armDanceLeft  0.7s ease-in-out infinite alternate; }
+    .haze-robot.gesture-dance .hr-arm-right { animation: armDanceRight 0.7s ease-in-out infinite alternate; }
+
+    @keyframes robotDance {
+      from { transform: translateY(0) rotate(-4deg); }
+      to   { transform: translateY(-10px) rotate(4deg); }
+    }
+
+    @keyframes armDanceLeft {
+      from { transform: rotate(-30deg); }
+      to   { transform: rotate(20deg); }
+    }
+
+    @keyframes armDanceRight {
+      from { transform: rotate(30deg); }
+      to   { transform: rotate(-20deg); }
+    }
+
+    /* THUMBS UP — right arm extended up */
+    .haze-robot.gesture-thumbsup { animation: robotFloat 3s ease-in-out infinite; }
+    .haze-robot.gesture-thumbsup .hr-arm-right { animation: armThumbsUp 0.5s ease forwards; }
+    .haze-robot.gesture-thumbsup .hr-arm-left  { animation: armRelaxLeft 0.5s ease forwards; }
+    .haze-robot.gesture-thumbsup .hr-mouth { border-radius: 0 0 16px 16px; height: 14px; }
+
+    @keyframes armThumbsUp {
+      to { transform: rotate(-140deg) translateY(-10px); }
+    }
+
+    @keyframes armRelaxLeft {
+      to { transform: rotate(10deg); }
+    }
+
+    /* ---- Chat Panel ---- */
+    .haze-chat-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 80px 56px 56px;
+      gap: 24px;
+      overflow: hidden;
+    }
+
+    .haze-chat-messages {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      overflow-y: auto;
+      flex: 1;
+      padding-right: 4px;
+      scrollbar-width: none;
+    }
+
+    .haze-chat-messages::-webkit-scrollbar { display: none; }
+
+    .chat-bubble {
+      max-width: 85%;
+      padding: 16px 20px;
+      border-radius: 2px;
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.7;
+      animation: bubbleIn 0.4s ease;
+    }
+
+    @keyframes bubbleIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .chat-bubble.haze {
+      background: rgba(255,255,255,0.05);
+      border-left: 1px solid rgba(255,255,255,0.15);
+      color: white;
+      align-self: flex-start;
+    }
+
+    .chat-bubble.user {
+      background: rgba(255,255,255,0.08);
+      border-right: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.75);
+      align-self: flex-end;
+      text-align: right;
+    }
+
+    .chat-bubble .bubble-label {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 6px;
+    }
+
+    .haze-chat-input-wrap {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      padding-bottom: 12px;
+    }
+
+    .haze-chat-input {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      color: white;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      caret-color: white;
+    }
+
+    .haze-chat-input::placeholder { color: rgba(255,255,255,0.25); }
+
+    .haze-chat-send {
+      background: white;
+      color: black;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .haze-chat-send:hover { transform: scale(1.1); }
+
+    .haze-whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      color: black;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 14px 24px;
+      border-radius: 2px;
+      margin-top: 8px;
+      transition: background 0.3s, transform 0.2s;
+      cursor: pointer;
+      border: none;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .haze-whatsapp-btn:hover { transform: scale(1.02); background: rgba(255,255,255,0.9); }
+
+    @media (max-width: 768px) {
+      .haze-modal-inner { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+      .haze-modal-robot-wrap {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        padding: 40px 20px 24px;
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+      }
+      .haze-robot { width: 80px; }
+      .hr-face { width: 56px; height: 50px; }
+      .hr-body { width: 64px; height: 56px; }
+      .hr-arm { top: 68px; height: 44px; }
+      .hr-forearm-left, .hr-forearm-right { height: 32px; bottom: -32px; }
+      .haze-chat-wrap { padding: 24px 20px 32px; }
+      .haze-modal-close { top: 20px; right: 20px; }
+    }
+
+    /* ========================
        MARQUEE
     ======================== */
     .marquee-section {
@@ -969,7 +1510,69 @@
       <p class="spline-text-label">Presença</p>
       <h2 class="spline-text-headline">Mais do que aparecer.<br>Ser lembrado.</h2>
     </div>
+    <!-- HAZE CHAT INVITE -->
+    <div class="haze-invite" id="hazeInvite" onclick="openHazeChat()">
+      <div class="haze-invite-text">
+        <p class="invite-name">HAZE</p>
+        <p class="invite-msg">Olá, eu sou o Haze.<br>Quem é você?</p>
+        <span class="invite-cta">Clique aqui e me fale de você &#x2192;</span>
+      </div>
+    </div>
   </section>
+
+  <!-- HAZE CHAT MODAL -->
+  <div class="haze-modal" id="hazeModal">
+    <button class="haze-modal-close" onclick="closeHazeChat()">&#x2715;</button>
+
+    <div class="haze-modal-inner">
+      <!-- Robot side -->
+      <div class="haze-modal-robot-wrap">
+        <div class="haze-robot" id="hazeRobot">
+          <!-- Head -->
+          <div class="hr-head">
+            <div class="hr-antenna"></div>
+            <div class="hr-face">
+              <div class="hr-eyes">
+                <div class="hr-eye"></div>
+                <div class="hr-eye"></div>
+              </div>
+              <div class="hr-mouth"></div>
+            </div>
+          </div>
+          <!-- Body -->
+          <div class="hr-body">
+            <div class="hr-chest"></div>
+          </div>
+          <!-- Arms -->
+          <div class="hr-arm hr-arm-left" id="armLeft">
+            <div class="hr-forearm-left" id="forearmLeft">
+              <div class="hr-hand hr-hand-left" id="handLeft"></div>
+            </div>
+          </div>
+          <div class="hr-arm hr-arm-right" id="armRight">
+            <div class="hr-forearm-right" id="forearmRight">
+              <div class="hr-hand hr-hand-right" id="handRight"></div>
+            </div>
+          </div>
+          <!-- Legs -->
+          <div class="hr-legs">
+            <div class="hr-leg"></div>
+            <div class="hr-leg"></div>
+          </div>
+        </div>
+        <p class="haze-robot-label">HAZE</p>
+      </div>
+
+      <!-- Chat side -->
+      <div class="haze-chat-wrap">
+        <div class="haze-chat-messages" id="hazeChatMessages"></div>
+        <div class="haze-chat-input-wrap" id="hazeChatInputWrap">
+          <input class="haze-chat-input" id="hazeChatInput" type="text" placeholder="Digite sua resposta..." autocomplete="off"/>
+          <button class="haze-chat-send" id="hazeChatSend" onclick="handleChatSend()">&#x2192;</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- MARQUEE -->
   <div class="marquee-section">
@@ -1492,6 +2095,149 @@
       drawPong();
       requestAnimationFrame(pongLoop);
     })();
+
+    // ========================
+    // HAZE INVITE — scroll trigger
+    // ========================
+    const hazeInvite = document.getElementById('hazeInvite');
+    const splineSection = document.getElementById('spline-section');
+
+    const inviteObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Aguarda 2.8s para o robô Spline terminar de aparecer
+          setTimeout(() => {
+            hazeInvite.classList.add('visible');
+          }, 2800);
+          inviteObserver.unobserve(splineSection);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    inviteObserver.observe(splineSection);
+
+    // ========================
+    // HAZE CHAT
+    // ========================
+    const WHATSAPP_NUMBER = '5516988589448';
+    let chatStep = 0;
+    let userName = '';
+
+    const robot   = document.getElementById('hazeRobot');
+    const messages = document.getElementById('hazeChatMessages');
+    const inputWrap = document.getElementById('hazeChatInputWrap');
+    const input    = document.getElementById('hazeChatInput');
+
+    function setGesture(gesture) {
+      robot.className = 'haze-robot';
+      if (gesture) {
+        void robot.offsetWidth;
+        robot.classList.add('gesture-' + gesture);
+      }
+    }
+
+    function addBubble(who, text, delay) {
+      delay = delay || 0;
+      return new Promise(resolve => {
+        setTimeout(() => {
+          const bubble = document.createElement('div');
+          bubble.className = 'chat-bubble ' + who;
+          const label = document.createElement('p');
+          label.className = 'bubble-label';
+          label.textContent = who === 'haze' ? 'HAZE' : 'VOCÊ';
+          const p = document.createElement('p');
+          p.textContent = text;
+          bubble.appendChild(label);
+          bubble.appendChild(p);
+          messages.appendChild(bubble);
+          messages.scrollTop = messages.scrollHeight;
+          resolve();
+        }, delay);
+      });
+    }
+
+    function showInput(placeholder) {
+      input.value = '';
+      input.placeholder = placeholder || 'Digite sua resposta...';
+      inputWrap.style.display = 'flex';
+      setTimeout(() => input.focus(), 100);
+    }
+
+    function hideInput() {
+      inputWrap.style.display = 'none';
+    }
+
+    async function startChat() {
+      chatStep = 0;
+      setGesture('thinking');
+      await addBubble('haze', 'Qual é seu nome?', 600);
+      showInput('Seu nome...');
+      chatStep = 1;
+    }
+
+    async function handleChatSend() {
+      const val = input.value.trim();
+      if (!val) return;
+      hideInput();
+
+      if (chatStep === 1) {
+        userName = val;
+        await addBubble('user', val);
+        setGesture('heart');
+        await addBubble('haze', 'Nome bonito, ' + userName + '!', 800);
+        await addBubble('haze', 'Você tem uma marca?', 1600);
+        showInput('Sim / Ainda não...');
+        chatStep = 2;
+
+      } else if (chatStep === 2) {
+        await addBubble('user', val);
+        setGesture('dance');
+        await addBubble('haze', 'Me conte sobre sua marca. Gostaria de saber todos os detalhes para eu poder lhe ajudar e lhe entregar um presente bem especial.', 800);
+        showInput('Conta tudo para mim...');
+        chatStep = 3;
+
+      } else if (chatStep === 3) {
+        await addBubble('user', val);
+        setGesture('thumbsup');
+        await addBubble('haze', 'Você é um humano incrível!', 800);
+        await addBubble('haze', 'Chama meu sócio no WhatsApp, ele vai estar lhe enviando um presente.', 1800);
+        await addBubble('haze', 'Obrigado por conversar comigo, ' + userName + '. Lembre-se sempre que aqueles que são loucos o suficiente de acharem que podem mudar o mundo são os que de fato o fazem.', 3000);
+
+        setTimeout(() => {
+          const btn = document.createElement('a');
+          btn.className = 'haze-whatsapp-btn';
+          const msg = encodeURIComponent('Olá! Conversei com o HAZE e recebi um convite especial. Meu nome é ' + userName + '.');
+          btn.href = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + msg;
+          btn.target = '_blank';
+          btn.rel = 'noopener';
+          btn.innerHTML = '&#128172; Chamar no WhatsApp';
+          messages.appendChild(btn);
+          messages.scrollTop = messages.scrollHeight;
+        }, 5000);
+
+        chatStep = 0;
+      }
+    }
+
+    function openHazeChat() {
+      const modal = document.getElementById('hazeModal');
+      modal.style.display = 'flex';
+      setTimeout(() => modal.classList.add('open'), 10);
+      messages.innerHTML = '';
+      inputWrap.style.display = 'none';
+      setGesture(null);
+      startChat();
+    }
+
+    function closeHazeChat() {
+      const modal = document.getElementById('hazeModal');
+      modal.classList.remove('open');
+      setTimeout(() => { modal.style.display = 'none'; }, 500);
+    }
+
+    document.getElementById('hazeChatInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') handleChatSend();
+    });
   </script>
 </body>
 </html>
