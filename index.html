@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HAZE — Marcas feitas para permanecer</title>
+  <title>HAZE Marcas feitas para permanecer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
@@ -97,7 +97,7 @@
       font-weight: 600;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.70);
       display: block;
       position: relative;
       overflow: hidden;
@@ -186,7 +186,7 @@
       font-size: 36px;
       font-weight: 700;
       letter-spacing: -0.02em;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.85);
       text-decoration: none;
       text-transform: uppercase;
       transition: color 0.3s;
@@ -200,7 +200,7 @@
       right: 56px;
       background: none;
       border: none;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.72);
       font-size: 28px;
       cursor: none;
       font-weight: 300;
@@ -220,12 +220,13 @@
       overflow: hidden;
     }
 
+
     .hero-eyebrow {
       font-size: 10px;
       font-weight: 600;
       letter-spacing: 0.45em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.78);
       margin-bottom: 40px;
       opacity: 0;
       animation: fadeUp 1s ease 0.3s forwards;
@@ -247,7 +248,7 @@
       font-weight: 300;
       letter-spacing: 0.35em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.65);
+      color: rgba(255,255,255,0.82);
       margin-top: 36px;
       opacity: 0;
       animation: fadeUp 1s ease 1s forwards;
@@ -315,7 +316,7 @@
       font-weight: 600;
       letter-spacing: 0.4em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.78);
       margin-bottom: 12px;
     }
 
@@ -334,71 +335,76 @@
     /* ========================
        HAZE INVITE BUTTON
     ======================== */
-    /* Balão ao lado direito da cabeça do robô — desktop */
+    /*
+      Posição definida dinamicamente via JS após o robô carregar.
+      Inicia escondido em (0,0) — JS reposiciona em runtime.
+    */
     .haze-invite {
-      --invite-x: 0;
       position: absolute;
-      top: 25%;
-      left: clamp(52%, calc(50% + 170px), calc(100% - 300px));
+      top: 0;
+      left: 0;
       z-index: 10;
       cursor: pointer;
       opacity: 0;
-      transform: translate(var(--invite-x), 16px);
+      transform: translateY(16px);
       transition: opacity 0.6s ease, transform 0.6s ease;
       pointer-events: none;
+      will-change: top, left, opacity;
     }
 
     .haze-invite.visible {
       opacity: 1;
-      transform: translate(var(--invite-x), 0);
+      transform: translateY(0);
       pointer-events: auto;
     }
 
     .haze-invite:hover .haze-invite-text {
-      border-color: rgba(255,255,255,0.4);
+      border-color: rgba(255,255,255,0.82);
     }
 
     .haze-invite-text {
       position: relative;
-      background: rgba(0,0,0,0.75);
-      border: 1px solid rgba(255,255,255,0.2);
-      backdrop-filter: blur(12px);
-      padding: 20px 24px;
+      background: rgba(0,0,0,0.80);
+      border: 1px solid rgba(255,255,255,0.22);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 18px 22px;
       border-radius: 2px;
-      max-width: 240px;
+      width: 220px;
       transition: border-color 0.3s;
     }
 
-    /* Ponteiro do balão apontando para a esquerda (robô) */
+    /* Cauda diagonal apontando para a cabeça (que está abaixo-esquerda do balão).
+       A cauda sai do canto inferior-esquerdo do balão, descendo na diagonal até a cabeça. */
     .haze-invite-text::before {
+      /* Camada de borda (mais clara) */
       content: '';
       position: absolute;
-      left: -8px;
-      top: 28px;
-      width: 0;
-      height: 0;
-      border-top: 7px solid transparent;
-      border-bottom: 7px solid transparent;
-      border-right: 8px solid rgba(255,255,255,0.2);
+      bottom: -22px;
+      left: 14px;
+      width: 24px;
+      height: 24px;
+      background: rgba(255,255,255,0.22);
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
     }
 
     .haze-invite-text::after {
+      /* Camada de preenchimento (preta) */
       content: '';
       position: absolute;
-      left: -6px;
-      top: 29px;
-      width: 0;
-      height: 0;
-      border-top: 6px solid transparent;
-      border-bottom: 6px solid transparent;
-      border-right: 7px solid rgba(0,0,0,0.75);
+      bottom: -19px;
+      left: 16px;
+      width: 21px;
+      height: 21px;
+      background: rgba(0,0,0,0.80);
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
     }
 
     .invite-name {
       font-size: 8px;
       font-weight: 700;
       letter-spacing: 0.4em;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.82);
       margin-bottom: 8px;
     }
 
@@ -415,7 +421,7 @@
       font-weight: 600;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.72);
       border-bottom: 1px solid rgba(255,255,255,0.2);
       padding-bottom: 2px;
       display: inline-block;
@@ -424,12 +430,27 @@
 
     .haze-invite:hover .invite-cta { color: white; }
 
-    @media (max-width: 768px) {
-      .haze-invite { right: 16px; bottom: 20px; }
-      .haze-invite-text { max-width: 200px; }
-      .haze-invite-text::before,
-      .haze-invite-text::after { display: none; }
+    /* Tablet menor: balão um pouco menor */
+    @media (max-width: 900px) and (min-width: 769px) {
+      .haze-invite-text { width: 200px; padding: 14px 18px; }
       .invite-msg { font-size: 14px; }
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .haze-invite-text {
+        width: 180px;
+        padding: 14px 16px;
+      }
+      .invite-name { font-size: 7px; margin-bottom: 6px; }
+      .invite-msg { font-size: 13px; margin-bottom: 8px; }
+      .invite-cta { font-size: 8px; }
+    }
+
+    /* Mobile pequeno */
+    @media (max-width: 390px) {
+      .haze-invite-text { width: 165px; padding: 12px 14px; }
+      .invite-msg { font-size: 12px; }
     }
 
     /* ========================
@@ -456,7 +477,7 @@
       right: 40px;
       background: none;
       border: none;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.82);
       font-size: 22px;
       cursor: pointer;
       z-index: 10;
@@ -487,7 +508,7 @@
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.4em;
-      color: rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.60);
     }
 
     /* ---- CSS Robot ---- */
@@ -789,7 +810,7 @@
       font-weight: 700;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.60);
       margin-bottom: 6px;
     }
 
@@ -813,7 +834,7 @@
       caret-color: white;
     }
 
-    .haze-chat-input::placeholder { color: rgba(255,255,255,0.25); }
+    .haze-chat-input::placeholder { color: rgba(255,255,255,0.50); }
 
     .haze-chat-send {
       background: white;
@@ -899,7 +920,7 @@
       font-weight: 600;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.72);
       flex-shrink: 0;
     }
 
@@ -934,7 +955,7 @@
       font-weight: 600;
       letter-spacing: 0.45em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
+      color: rgba(255,255,255,0.75);
       margin-bottom: 56px;
     }
 
@@ -979,7 +1000,7 @@
       font-weight: 600;
       letter-spacing: 0.4em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.78);
       margin-bottom: 72px;
     }
 
@@ -1014,7 +1035,7 @@
       font-size: 15px;
       font-weight: 300;
       line-height: 1.85;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.85);
       margin-bottom: 28px;
     }
 
@@ -1050,7 +1071,7 @@
       font-size: 13px;
       font-weight: 300;
       line-height: 1.7;
-      color: rgba(255,255,255,0.62);
+      color: rgba(255,255,255,0.78);
     }
 
     /* ========================
@@ -1085,7 +1106,7 @@
       font-size: 14px;
       font-weight: 300;
       line-height: 1.8;
-      color: rgba(255,255,255,0.65);
+      color: rgba(255,255,255,0.82);
       padding-bottom: 6px;
     }
 
@@ -1111,7 +1132,7 @@
     .service-num {
       font-size: 10px;
       font-weight: 400;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.72);
       letter-spacing: 0.08em;
       min-width: 24px;
     }
@@ -1120,7 +1141,7 @@
       font-size: clamp(20px, 2.8vw, 38px);
       font-weight: 300;
       letter-spacing: -0.02em;
-      color: rgba(255,255,255,0.65);
+      color: rgba(255,255,255,0.82);
       transition: color 0.3s;
     }
 
@@ -1128,7 +1149,7 @@
 
     .service-arrow {
       font-size: 18px;
-      color: rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.60);
       opacity: 0;
       transform: translateX(-10px);
       transition: all 0.4s cubic-bezier(0.76, 0, 0.24, 1);
@@ -1188,7 +1209,7 @@
       font-size: 9px;
       letter-spacing: 0.4em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
+      color: rgba(255,255,255,0.75);
     }
 
     /* ========================
@@ -1231,7 +1252,7 @@
       font-size: 13px;
       font-weight: 300;
       line-height: 1.7;
-      color: rgba(255,255,255,0.62);
+      color: rgba(255,255,255,0.78);
     }
 
     /* ========================
@@ -1267,7 +1288,7 @@
       font-size: 15px;
       font-weight: 300;
       line-height: 1.85;
-      color: rgba(255,255,255,0.65);
+      color: rgba(255,255,255,0.82);
     }
 
     .contact-actions {
@@ -1312,7 +1333,7 @@
 
     .footer-copy {
       font-size: 10px;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.72);
       letter-spacing: 0.1em;
     }
 
@@ -1320,7 +1341,7 @@
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.35em;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.72);
     }
 
     /* ========================
@@ -1372,17 +1393,6 @@
       #spline-section { height: 70svh; }
       .spline-text { left: 20px; bottom: 32px; }
       .spline-text-headline { font-size: clamp(22px, 6vw, 32px); }
-      .haze-invite {
-        --invite-x: 34px;
-        top: 23%;
-        left: 50%;
-      }
-      .haze-invite-text {
-        max-width: 176px;
-        padding: 16px 18px;
-      }
-      .invite-msg { font-size: 13px; }
-      .invite-cta { font-size: 8px; letter-spacing: 0.28em; }
 
       /* Marquee */
       .marquee-item { font-size: 9px; gap: 20px; padding: 0 20px; }
@@ -1438,10 +1448,6 @@
       .hero-title { font-size: 22vw; }
       .gooey-text { font-size: 9vw; }
       .contact-headline { font-size: 16vw; }
-      .haze-invite { --invite-x: 24px; }
-      .haze-invite-text { max-width: 160px; padding: 14px 16px; }
-      .invite-msg { font-size: 12px; }
-      .invite-cta { font-size: 7px; }
     }
   </style>
 </head>
@@ -1524,13 +1530,13 @@
     <spline-viewer url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"></spline-viewer>
     <div class="spline-text">
       <p class="spline-text-label">Presença</p>
-      <h2 class="spline-text-headline">Mais do que aparecer.<br>Ser lembrado.</h2>
+      <h2 class="spline-text-headline">Mais do que aparecer,<br>ser lembrado</h2>
     </div>
     <!-- HAZE CHAT INVITE -->
     <div class="haze-invite" id="hazeInvite" onclick="openHazeChat()">
       <div class="haze-invite-text">
         <p class="invite-name">HAZE</p>
-        <p class="invite-msg">Olá, eu sou o Haze.<br>Quem é você?</p>
+        <p class="invite-msg">Olá, eu sou o Haze,<br>quem é você?</p>
         <span class="invite-cta">Clique aqui e me fale de você &#x2192;</span>
       </div>
     </div>
@@ -1634,10 +1640,10 @@
           A HAZE é uma agência de publicidade e branding que cria marcas com presença real e capacidade de permanecer na mente e na cultura.
         </p>
         <p>
-          Acreditamos que marcas fortes não gritam. Elas permanecem. Unimos estratégia, estética e percepção para transformar negócios em marcas fortes, memoráveis e desejadas.
+          Acreditamos que marcas fortes não gritam, elas permanecem, unimos estratégia, estética e percepção para transformar negócios em marcas fortes, memoráveis e desejadas
         </p>
         <p>
-          Estética sem estratégia é vazia. Estratégia sem estética é invisível.
+          Estética sem estratégia é vazia, estratégia sem estética é invisível
         </p>
       </div>
     </div>
@@ -1746,7 +1752,7 @@
       <p class="manifesto-quote reveal">
         <span class="manifesto-dim">Aqueles que são loucos o suficiente</span> de acharem que podem mudar o mundo <span class="manifesto-dim">são os que de fato o fazem.</span>
       </p>
-      <p class="manifesto-source reveal">Steve Jobs &nbsp;&#x2014;&nbsp; 1997</p>
+      <p class="manifesto-source reveal">Steve Jobs &nbsp;&nbsp; 1997</p>
     </div>
   </section>
 
@@ -1756,27 +1762,27 @@
     <div class="values-grid reveal">
       <div class="value-item">
         <p class="value-title">Clareza</p>
-        <p class="value-desc">Comunicamos sem ruído. Cada palavra, imagem e escolha carrega intenção.</p>
+        <p class="value-desc">Comunicamos sem ruído, cada palavra, imagem e escolha carrega intenção</p>
       </div>
       <div class="value-item">
         <p class="value-title">Estética</p>
-        <p class="value-desc">A forma é argumento. O visual chega antes do texto e já comunica.</p>
+        <p class="value-desc">A forma é argumento, o visual chega antes do texto e já comunica</p>
       </div>
       <div class="value-item">
         <p class="value-title">Estratégia</p>
-        <p class="value-desc">Beleza sem direção não resolve. Todo projeto parte de onde a marca precisa chegar.</p>
+        <p class="value-desc">Beleza sem direção não resolve, todo projeto parte de onde a marca precisa chegar</p>
       </div>
       <div class="value-item">
         <p class="value-title">Presença</p>
-        <p class="value-desc">Ocupamos espaço na mente das pessoas. Não desesperadamente, mas naturalmente.</p>
+        <p class="value-desc">Ocupamos espaço na mente das pessoas, não desesperadamente, mas naturalmente</p>
       </div>
       <div class="value-item">
         <p class="value-title">Percepção</p>
-        <p class="value-desc">Branding é o que as pessoas sentem quando pensam em você. Isso se constrói.</p>
+        <p class="value-desc">Branding é o que as pessoas sentem quando pensam em você, isso se constrói</p>
       </div>
       <div class="value-item">
         <p class="value-title">Longevidade</p>
-        <p class="value-desc">Não criamos para o momento. Criamos para permanecer.</p>
+        <p class="value-desc">Não criamos para o momento, criamos para permanecer</p>
       </div>
     </div>
   </section>
@@ -1784,10 +1790,10 @@
   <!-- CONTACT -->
   <section id="contato">
     <div class="contact-inner">
-      <h2 class="contact-headline reveal">Vamos<br>criar<br>juntos.</h2>
+      <h2 class="contact-headline reveal">Vamos<br>criar<br>juntos</h2>
       <div class="contact-grid">
         <p class="contact-body reveal">
-          Transformamos negócios em marcas memoráveis. Se você quer construir algo que permaneça na mente das pessoas e gere desejo real, estamos prontos para começar.
+          Transformamos negócios em marcas memoráveis, se você quer construir algo que permaneça na mente das pessoas e gere desejo real, estamos prontos para começar
         </p>
         <div class="contact-actions reveal">
           <a href="mailto:contato@hazeagencia.com" class="contact-link">
@@ -1803,7 +1809,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <span class="footer-copy">&#xA9; 2025 HAZE. Todos os direitos reservados.</span>
+    <span class="footer-copy">&#xA9; 2025 HAZE Todos os direitos reservados</span>
     <span class="footer-logo">HAZE</span>
   </footer>
 
@@ -2113,24 +2119,85 @@
     })();
 
     // ========================
-    // HAZE INVITE — scroll trigger
+    // HAZE INVITE — posicionamento dinâmico ao lado da cabeça do robô
     // ========================
     const hazeInvite = document.getElementById('hazeInvite');
     const splineSection = document.getElementById('spline-section');
+    const splineViewer = document.querySelector('#spline-section spline-viewer');
 
+    /*
+      O balão fica ACIMA E À DIREITA da cabeça do robô.
+      A cauda diagonal (canto inferior-esquerdo do balão) aponta direto pra cabeça.
+    */
+    function positionHazeInvite() {
+      if (!splineSection || !hazeInvite) return;
+      const rect = splineSection.getBoundingClientRect();
+      const w = rect.width;
+      const h = rect.height;
+      const isMobile = window.innerWidth <= 768;
+      const isSmallMobile = window.innerWidth <= 390;
+
+      // Centro da cabeça do robô (em coordenadas do spline-section)
+      const headCenterX = w * 0.50;
+      const headCenterY = isMobile ? h * 0.30 : h * 0.32;
+      const headHalfWidth = isMobile ? 35 : 55;
+
+      // Tamanho do balão (depende do viewport)
+      let bubbleW = 220;
+      if (isSmallMobile) bubbleW = 165;
+      else if (isMobile) bubbleW = 180;
+      else if (window.innerWidth <= 900) bubbleW = 200;
+
+      const bubbleH = isMobile ? 110 : 130;
+
+      // Distâncias diagonais entre o balão e a cabeça
+      const offsetRight = 60;  // quanto à direita da cabeça
+      const offsetUp = 80;     // quanto acima da cabeça
+
+      // Balão posicionado em diagonal acima-direita da cabeça
+      let left = headCenterX + headHalfWidth + offsetRight;
+      let top = headCenterY - bubbleH - offsetUp;
+
+      // Não deixar sair da tela
+      const maxLeft = w - bubbleW - 16;
+      if (left > maxLeft) left = maxLeft;
+      if (left < 16) left = 16;
+      if (top < 16) top = 16;
+
+      hazeInvite.style.left = left + 'px';
+      hazeInvite.style.top = top + 'px';
+    }
+
+    // Reposiciona em resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(positionHazeInvite, 100);
+    });
+
+    // Reposiciona quando o spline-viewer terminar de carregar
+    if (splineViewer) {
+      splineViewer.addEventListener('load', positionHazeInvite);
+    }
+
+    // Mostrar o balão SOMENTE depois que a animação inicial do robô terminar
     const inviteObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          // Aguarda 2.8s para o robô Spline terminar de aparecer
+          // Aguarda 3.2s — tempo da animação Spline + um respiro extra
           setTimeout(() => {
+            positionHazeInvite();
             hazeInvite.classList.add('visible');
-          }, 2800);
+          }, 3200);
           inviteObserver.unobserve(splineSection);
         }
       });
     }, { threshold: 0.4 });
 
     inviteObserver.observe(splineSection);
+
+    // Posiciona uma vez no load inicial (mesmo escondido) para não ter "flash" de posição errada
+    window.addEventListener('load', positionHazeInvite);
 
     // ========================
     // HAZE CHAT
@@ -2208,7 +2275,7 @@
       } else if (chatStep === 2) {
         await addBubble('user', val);
         setGesture('dance');
-        await addBubble('haze', 'Me conte sobre sua marca. Gostaria de saber todos os detalhes para eu poder lhe ajudar e lhe entregar um presente bem especial.', 800);
+        await addBubble('haze', 'Me conte sobre sua marca, gostaria de saber todos os detalhes para eu poder lhe ajudar e lhe entregar um presente bem especial', 800);
         showInput('Conta tudo para mim...');
         chatStep = 3;
 
@@ -2216,13 +2283,13 @@
         await addBubble('user', val);
         setGesture('thumbsup');
         await addBubble('haze', 'Você é um humano incrível!', 800);
-        await addBubble('haze', 'Chama meu sócio no WhatsApp, ele vai estar lhe enviando um presente.', 1800);
-        await addBubble('haze', 'Obrigado por conversar comigo, ' + userName + '. Lembre-se sempre que aqueles que são loucos o suficiente de acharem que podem mudar o mundo são os que de fato o fazem.', 3000);
+        await addBubble('haze', 'Chama meu sócio no WhatsApp, ele vai estar lhe enviando um presente', 1800);
+        await addBubble('haze', 'Obrigado por conversar comigo, ' + userName + ', lembre-se sempre que aqueles que são loucos o suficiente de acharem que podem mudar o mundo são os que de fato o fazem', 3000);
 
         setTimeout(() => {
           const btn = document.createElement('a');
           btn.className = 'haze-whatsapp-btn';
-          const msg = encodeURIComponent('Olá! Conversei com o HAZE e recebi um convite especial. Meu nome é ' + userName + '.');
+          const msg = encodeURIComponent('Olá! Conversei com o HAZE e recebi um convite especial, meu nome é ' + userName);
           btn.href = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + msg;
           btn.target = '_blank';
           btn.rel = 'noopener';
