@@ -796,33 +796,95 @@
     }
 
     /* ========================
-       RESPONSIVE
+       RESPONSIVE — TABLET
     ======================== */
-    @media (max-width: 900px) {
-      nav { padding: 28px 28px; }
+    @media (max-width: 1024px) {
+      nav { padding: 28px 32px; }
+      .about-grid { gap: 60px; }
+      .services-top { gap: 48px; }
+      .contact-grid { gap: 48px; }
+      .values-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ========================
+       RESPONSIVE — MOBILE
+    ======================== */
+    @media (max-width: 768px) {
+      /* Disable custom cursor on touch */
+      .cursor, .cursor-ring { display: none; }
+      body { cursor: auto; }
+      a, button { cursor: pointer; }
+
+      /* Nav */
+      nav { padding: 24px 20px; }
       .nav-links, .nav-cta { display: none; }
       .nav-hamburger { display: flex; }
+      .mobile-close { right: 20px; top: 24px; }
 
-      #hero { padding: 0 28px; }
-      #gooey-section { padding: 80px 28px; }
-      .gooey-container { height: 80px; }
+      /* Hero */
+      #hero { padding: 0 20px; min-height: 100svh; }
+      .hero-eyebrow { font-size: 9px; letter-spacing: 0.3em; margin-bottom: 24px; }
+      .hero-tagline { font-size: 10px; letter-spacing: 0.25em; margin-top: 24px; }
 
-      #sobre { padding: 100px 28px; }
-      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      /* Spline */
+      #spline-section { height: 70svh; }
+      .spline-text { left: 20px; bottom: 32px; }
+      .spline-text-headline { font-size: clamp(22px, 6vw, 32px); }
+
+      /* Marquee */
+      .marquee-item { font-size: 9px; gap: 20px; padding: 0 20px; }
+
+      /* Gooey */
+      #gooey-section { padding: 72px 20px; min-height: auto; }
+      .gooey-container { height: 72px; }
+      .gooey-text { font-size: clamp(32px, 10vw, 56px); }
+      .gooey-label { font-size: 8px; margin-bottom: 36px; }
+
+      /* About */
+      #sobre { padding: 80px 20px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .about-pillars { grid-template-columns: 1fr; }
+      .pillar { padding: 28px 24px; }
+      .section-label { margin-bottom: 48px; }
 
-      #servicos { padding: 100px 28px; }
-      .services-top { grid-template-columns: 1fr; gap: 32px; }
+      /* Services */
+      #servicos { padding: 80px 20px; }
+      .services-inner { max-width: 100%; }
+      .services-top { grid-template-columns: 1fr; gap: 24px; margin-bottom: 48px; }
+      .services-desc { display: none; }
+      .service-item { padding: 22px 0; }
+      .service-item:hover { padding-left: 12px; }
+      .service-name { font-size: clamp(18px, 5vw, 28px); }
 
-      #manifesto { padding: 120px 28px; }
+      /* Pong */
+      #pong-section { height: 60svh; }
 
-      #valores { padding: 100px 28px; }
+      /* Manifesto */
+      #manifesto { padding: 80px 20px; }
+      .manifesto-quote { font-size: clamp(22px, 6vw, 36px); }
+
+      /* Values */
+      #valores { padding: 80px 20px; max-width: 100%; }
       .values-grid { grid-template-columns: 1fr; }
+      .value-item { padding: 32px 24px; }
 
-      #contato { padding: 100px 28px 72px; }
-      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      /* Contact */
+      #contato { padding: 80px 20px 64px; }
+      .contact-inner { max-width: 100%; }
+      .contact-headline { font-size: clamp(44px, 14vw, 80px); margin-bottom: 48px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
 
-      footer { padding: 28px; }
+      /* Footer */
+      footer { padding: 24px 20px; flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    /* ========================
+       RESPONSIVE — SMALL MOBILE
+    ======================== */
+    @media (max-width: 390px) {
+      .hero-title { font-size: 22vw; }
+      .gooey-text { font-size: 9vw; }
+      .contact-headline { font-size: 16vw; }
     }
   </style>
 </head>
@@ -1127,6 +1189,23 @@
   </footer>
 
   <script>
+    // ========================
+    // SPLINE WATERMARK REMOVE
+    // ========================
+    (function hideSplineLogo() {
+      const viewer = document.querySelector('spline-viewer');
+      if (!viewer) return;
+      const interval = setInterval(() => {
+        const shadow = viewer.shadowRoot;
+        if (!shadow) return;
+        const logo = shadow.querySelector('#logo');
+        if (logo) { logo.remove(); clearInterval(interval); return; }
+        shadow.querySelectorAll('a, [class*="logo"], [id*="logo"], [class*="brand"], [class*="watermark"]')
+          .forEach(el => el.remove());
+      }, 100);
+      setTimeout(() => clearInterval(interval), 8000);
+    })();
+
     // ========================
     // CURSOR
     // ========================
