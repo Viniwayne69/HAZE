@@ -97,7 +97,7 @@
       font-weight: 600;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.70);
+      color: rgba(255,255,255,0.92);
       display: block;
       position: relative;
       overflow: hidden;
@@ -222,11 +222,11 @@
     }
 
     .hero-eyebrow {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.45em;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.4em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.78);
+      color: rgba(255,255,255,0.92);
       margin-bottom: 40px;
       opacity: 0;
       animation: fadeUp 1s ease 0.3s forwards;
@@ -238,17 +238,18 @@
       letter-spacing: -0.04em;
       line-height: 0.85;
       color: white;
+      text-shadow: 0 0 120px rgba(255,255,255,0.12);
       opacity: 0;
       animation: blurFadeIn 1.4s ease 0.5s forwards;
       text-align: center;
     }
 
     .hero-tagline {
-      font-size: clamp(12px, 1.2vw, 15px);
-      font-weight: 300;
-      letter-spacing: 0.35em;
+      font-size: clamp(13px, 1.3vw, 17px);
+      font-weight: 400;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.82);
+      color: rgba(255,255,255,0.92);
       margin-top: 36px;
       opacity: 0;
       animation: fadeUp 1s ease 1s forwards;
@@ -312,11 +313,11 @@
     }
 
     .spline-text-label {
-      font-size: 9px;
-      font-weight: 600;
-      letter-spacing: 0.4em;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.35em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.78);
+      color: rgba(255,255,255,0.92);
       margin-bottom: 12px;
     }
 
@@ -436,21 +437,42 @@
       .invite-msg { font-size: 14px; }
     }
 
-    /* Mobile */
+    /* Mobile — balão menor, seta aponta para a ESQUERDA (em direção ao robô) */
     @media (max-width: 768px) {
       .haze-invite-text {
-        width: 180px;
-        padding: 14px 16px;
+        width: 130px;
+        padding: 9px 11px;
       }
-      .invite-name { font-size: 7px; margin-bottom: 6px; }
-      .invite-msg { font-size: 13px; margin-bottom: 8px; }
-      .invite-cta { font-size: 8px; }
+      .invite-name { font-size: 6px; margin-bottom: 4px; letter-spacing: 0.26em; }
+      .invite-msg { font-size: 10px; margin-bottom: 6px; line-height: 1.3; }
+      .invite-cta { font-size: 6.5px; }
+      /* Seta na lateral ESQUERDA do balão apontando para o robô */
+      .haze-invite-text::before {
+        bottom: auto;
+        left: -19px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 19px;
+        height: 20px;
+        background: rgba(255,255,255,0.22);
+        clip-path: polygon(100% 0, 100% 100%, 0 50%);
+      }
+      .haze-invite-text::after {
+        bottom: auto;
+        left: -15px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 15px;
+        height: 16px;
+        background: rgba(0,0,0,0.80);
+        clip-path: polygon(100% 0, 100% 100%, 0 50%);
+      }
     }
 
     /* Mobile pequeno */
     @media (max-width: 390px) {
-      .haze-invite-text { width: 165px; padding: 12px 14px; }
-      .invite-msg { font-size: 12px; }
+      .haze-invite-text { width: 118px; padding: 8px 10px; }
+      .invite-msg { font-size: 9.5px; }
     }
 
     /* ========================
@@ -916,11 +938,11 @@
       align-items: center;
       gap: 32px;
       padding: 0 32px;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.3em;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.72);
+      color: rgba(255,255,255,0.85);
       flex-shrink: 0;
     }
 
@@ -928,7 +950,7 @@
       width: 3px;
       height: 3px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.45);
       flex-shrink: 0;
     }
 
@@ -951,11 +973,11 @@
     }
 
     .gooey-label {
-      font-size: 9px;
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.45em;
+      letter-spacing: 0.35em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.75);
+      color: rgba(255,255,255,0.88);
       margin-bottom: 56px;
     }
 
@@ -1000,11 +1022,11 @@
       display: inline-flex;
       align-items: center;
       gap: 14px;
-      font-size: 9px;
-      font-weight: 600;
-      letter-spacing: 0.4em;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.35em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.78);
+      color: rgba(255,255,255,0.92);
       margin-bottom: 72px;
     }
 
@@ -1013,7 +1035,7 @@
       display: block;
       width: 32px;
       height: 1px;
-      background: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.5);
     }
 
     .about-grid {
@@ -1025,7 +1047,7 @@
 
     .about-headline {
       font-size: clamp(30px, 3.6vw, 52px);
-      font-weight: 300;
+      font-weight: 700;
       line-height: 1.25;
       letter-spacing: -0.025em;
       color: white;
@@ -1036,10 +1058,10 @@
     }
 
     .about-body p {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 300;
-      line-height: 1.85;
-      color: rgba(255,255,255,0.85);
+      line-height: 1.9;
+      color: rgba(255,255,255,0.92);
       margin-bottom: 28px;
     }
 
@@ -1072,10 +1094,10 @@
     }
 
     .pillar-desc {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 300;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.78);
+      line-height: 1.75;
+      color: rgba(255,255,255,0.85);
     }
 
     /* ========================
@@ -1108,10 +1130,10 @@
     }
 
     .services-desc {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 300;
       line-height: 1.85;
-      color: rgba(255,255,255,0.88);
+      color: rgba(255,255,255,0.92);
       padding-bottom: 6px;
     }
 
@@ -1145,20 +1167,20 @@
 
     .service-num {
       font-size: 11px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.45);
+      font-weight: 600;
+      color: rgba(255,255,255,0.55);
       letter-spacing: 0.12em;
       min-width: 28px;
       transition: color 0.3s;
     }
 
-    .service-item:hover .service-num { color: rgba(255,255,255,0.70); }
+    .service-item:hover .service-num { color: rgba(255,255,255,0.85); }
 
     .service-name {
       font-size: clamp(24px, 3.2vw, 46px);
-      font-weight: 300;
+      font-weight: 400;
       letter-spacing: -0.025em;
-      color: rgba(255,255,255,0.90);
+      color: rgba(255,255,255,0.95);
       transition: color 0.3s, letter-spacing 0.4s;
     }
 
@@ -1305,10 +1327,11 @@
     }
 
     .manifesto-source {
-      font-size: 9px;
+      font-size: 10px;
+      font-weight: 600;
       letter-spacing: 0.4em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.75);
+      color: rgba(255,255,255,0.88);
     }
 
     /* ========================
@@ -1333,25 +1356,42 @@
     .value-item {
       padding: 48px 40px;
       background: #000;
-      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.35s ease, border-color 0.35s ease;
     }
 
-    .value-item:hover { background: #0a0a0a; }
+    .value-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .value-item:hover { background: #0d0d0d; }
+    .value-item:hover::before { opacity: 1; }
 
     .value-title {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: white;
       margin-bottom: 16px;
+      transition: letter-spacing 0.3s ease;
+    }
+
+    .value-item:hover .value-title {
+      letter-spacing: 0.28em;
     }
 
     .value-desc {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 300;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.78);
+      line-height: 1.75;
+      color: rgba(255,255,255,0.85);
     }
 
     /* ========================
@@ -1422,24 +1462,69 @@
        PARCEIROS
     ======================== */
     #parceiros {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
       display: flex;
       align-items: center;
-      gap: 56px;
-      padding: 28px 56px;
+      gap: 48px;
+      padding: 22px 56px;
       border-top: 1px solid rgba(255,255,255,0.08);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      background: #000;
+      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    #parceiros::-webkit-scrollbar { display: none; }
+
+    /* Fade de borda indicando scroll — só mobile */
+    .parceiros-fade {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .parceiros-fade {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 48px;
+        background: linear-gradient(to right, transparent, rgba(0,0,0,0.75));
+        pointer-events: none;
+        z-index: 3;
+        border-radius: 0;
+      }
+    }
+
+    .parceiros-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      flex-shrink: 0;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 2.8s forwards, parcDotPulse 2.5s ease-in-out 3s infinite;
+    }
+
+    @keyframes parcDotPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.55); }
+      50%       { box-shadow: 0 0 0 5px rgba(34,197,94,0); }
     }
 
     .parceiros-label {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.22em;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.55);
       white-space: nowrap;
       flex-shrink: 0;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 2.8s forwards;
     }
 
     .parceiros-logos {
@@ -1452,22 +1537,81 @@
     .parceiro-item {
       display: flex;
       align-items: center;
-      opacity: 0.70;
-      transition: opacity 0.3s ease;
+      gap: 10px;
       flex-shrink: 0;
+      opacity: 0;
+      position: relative;
+      overflow: hidden;
+      transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease;
     }
 
-    .parceiro-item:hover { opacity: 1; }
+    .parceiro-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .parceiro-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+
+    .parceiro-type {
+      font-size: 9px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.50);
+      letter-spacing: 0.06em;
+      line-height: 1;
+    }
+
+    /* Entrada staggered após o loader */
+    .parceiro-item:nth-child(1) { animation: parcIn 0.6s cubic-bezier(0.22,1,0.36,1) 3.0s forwards; }
+    .parceiro-item:nth-child(2) { animation: parcIn 0.6s cubic-bezier(0.22,1,0.36,1) 3.15s forwards; }
+    .parceiro-item:nth-child(3) { animation: parcIn 0.6s cubic-bezier(0.22,1,0.36,1) 3.3s forwards; }
+    .parceiro-item:nth-child(4) { animation: parcIn 0.6s cubic-bezier(0.22,1,0.36,1) 3.45s forwards; }
+
+    @keyframes parcIn {
+      from { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+      to   { opacity: 0.78; transform: translateY(0); filter: blur(0); }
+    }
+
+    /* Shimmer ao hover */
+    .parceiro-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+      transform: skewX(-20deg);
+      transition: left 0s;
+    }
+
+    .parceiro-item:hover {
+      opacity: 1 !important;
+      transform: translateY(-2px);
+      filter: brightness(1.2);
+    }
+
+    .parceiro-item:hover::after {
+      left: 160%;
+      transition: left 0.55s ease;
+    }
 
     .parceiro-svg {
-      height: 44px;
+      height: 40px;
       width: auto;
     }
 
     @media (max-width: 768px) {
-      #parceiros { padding: 20px; gap: 28px; }
-      .parceiros-logos { gap: 28px; }
-      .parceiro-svg { height: 32px; }
+      #parceiros { padding: 14px 16px; gap: 10px; }
+      .parceiros-logos { gap: 20px; }
+      .parceiro-svg { height: 28px; }
+      .parceiros-dot { width: 5px; height: 5px; }
     }
 
     /* ========================
@@ -1522,37 +1666,51 @@
     nav.nav--dark .nav-hamburger span { background: #000; }
 
     /* === SOBRE (branco) === */
-    #sobre .section-label { color: rgba(0,0,0,0.50); }
-    #sobre .section-label::before { background: rgba(0,0,0,0.20); }
+    #sobre .section-label { color: #000; }
+    #sobre .section-label::before { background: rgba(0,0,0,0.45); }
     #sobre .about-headline {
       color: #000;
-      font-weight: 300;
+      font-weight: 700;
       font-size: clamp(34px, 4vw, 58px);
     }
-    #sobre .about-headline strong {
-      font-weight: 300;
-    }
+    #sobre .about-headline strong { font-weight: 700; }
     #sobre .about-body p {
-      color: rgba(0,0,0,0.88);
+      color: #111111;
       font-size: 16px;
+      line-height: 1.9;
     }
     #sobre .about-pillars {
-      background: rgba(0,0,0,0.08);
-      border-color: rgba(0,0,0,0.08);
+      background: rgba(0,0,0,0.05);
+      border-color: rgba(0,0,0,0.1);
     }
-    #sobre .pillar { background: #fff; }
-    #sobre .pillar:hover { background: #f5f5f5; }
-    #sobre .pillar-name { color: #000; }
-    #sobre .pillar-desc { color: rgba(0,0,0,0.75); }
+    #sobre .pillar {
+      background: #fff;
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    #sobre .pillar:hover {
+      background: #f8f8f8;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    }
+    #sobre .pillar-name {
+      color: #000;
+      font-weight: 700;
+      font-size: 11px;
+    }
+    #sobre .pillar-desc {
+      color: #333;
+      font-size: 14px;
+      line-height: 1.75;
+    }
 
     /* === MANIFESTO (branco) === */
     #manifesto .manifesto-quote { color: #000; }
     #manifesto .manifesto-dim { color: #000; }
-    #manifesto .manifesto-source { color: rgba(0,0,0,0.55); }
+    #manifesto .manifesto-source { color: rgba(0,0,0,0.65); }
 
     /* === CONTATO (branco) === */
     #contato .contact-headline { color: #000; }
-    #contato .contact-body { color: rgba(0,0,0,0.80); }
+    #contato .contact-body { color: #222; }
     #contato .contact-link {
       color: #000;
       border-color: rgba(0,0,0,0.30);
@@ -1717,66 +1875,116 @@
       a, button { cursor: pointer; }
 
       /* Nav */
-      nav { padding: 24px 20px; }
+      nav { padding: 20px 20px; }
       .nav-links, .nav-cta { display: none; }
       .nav-hamburger { display: flex; }
       .mobile-close { right: 20px; top: 24px; }
 
       /* Hero */
       #hero { padding: 0 20px; min-height: 100svh; }
-      .hero-eyebrow { font-size: 9px; letter-spacing: 0.3em; margin-bottom: 24px; }
-      .hero-tagline { font-size: 10px; letter-spacing: 0.25em; margin-top: 24px; }
+      .hero-eyebrow { font-size: 9px; letter-spacing: 0.22em; margin-bottom: 20px; }
+      .hero-tagline { font-size: 9px; letter-spacing: 0.12em; margin-top: 20px; }
+
+      /* Parceiros */
+      #parceiros { padding: 12px 16px; gap: 12px; }
+      .parceiros-logos { gap: 14px; }
+      .parceiro-svg { height: 22px; }
+      .parceiros-label { font-size: 8px; letter-spacing: 0.18em; }
 
       /* Spline */
-      #spline-section { height: 70svh; }
-      .spline-text { left: 20px; bottom: 32px; }
-      .spline-text-headline { font-size: clamp(22px, 6vw, 32px); }
+      #spline-section { height: 65svh; }
+      .spline-text { left: 20px; bottom: 28px; }
+      .spline-text-label { font-size: 9px; }
+      .spline-text-headline { font-size: clamp(20px, 5.5vw, 28px); }
 
-      /* Marquee */
-      .marquee-item { font-size: 9px; gap: 20px; padding: 0 20px; }
+      /* Marquee — só uma linha no mobile */
+      .marquee-reverse { display: none; }
+      .marquee-item { font-size: 9px; gap: 18px; padding: 0 18px; }
 
       /* Gooey */
-      #gooey-section { padding: 72px 20px; min-height: auto; }
-      .gooey-container { height: 72px; }
-      .gooey-text { font-size: clamp(32px, 10vw, 56px); }
-      .gooey-label { font-size: 8px; margin-bottom: 36px; }
+      #gooey-section { padding: 64px 20px; min-height: auto; }
+      .gooey-container { height: 90px; overflow: visible; }
+      .gooey-text { font-size: clamp(30px, 9vw, 52px); }
+      .gooey-label { font-size: 8px; margin-bottom: 32px; }
 
       /* About */
-      #sobre { padding: 80px 20px; }
-      .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .about-pillars { grid-template-columns: 1fr; }
-      .pillar { padding: 28px 24px; }
-      .section-label { margin-bottom: 48px; }
+      #sobre { padding: 72px 20px; }
+      .about-grid { grid-template-columns: 1fr; gap: 36px; }
+      .about-pillars { grid-template-columns: 1fr; margin-top: 48px; }
+      .pillar { padding: 24px 20px; }
+      .section-label { margin-bottom: 40px; }
+      #sobre .about-headline { font-size: clamp(20px, 5.5vw, 28px); }
 
       /* Services */
-      #servicos { padding: 80px 20px; }
+      #servicos { padding: 72px 20px; }
       .services-inner { max-width: 100%; }
-      .services-top { grid-template-columns: 1fr; gap: 24px; margin-bottom: 48px; }
+      .services-top { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
+      .services-headline { white-space: normal; font-size: clamp(34px, 9vw, 52px); }
       .services-desc { display: none; }
-      .service-item { padding: 22px 0; }
-      .service-item:hover { padding-left: 12px; }
-      .service-name { font-size: clamp(18px, 5vw, 28px); }
+      .service-item { padding: 20px 0; }
+      .service-item:hover { padding-left: 0; }
+      .service-item:active { padding-left: 12px; }
+      .service-name { font-size: clamp(17px, 4.8vw, 26px); }
+      .service-arrow { display: none; }
 
       /* Pong */
-      #pong-section { height: 60svh; }
+      #pong-section { height: 55svh; }
 
       /* Manifesto */
-      #manifesto { padding: 80px 20px; }
-      .manifesto-quote { font-size: clamp(22px, 6vw, 36px); }
+      #manifesto { padding: 72px 20px; }
+      .manifesto-quote { font-size: clamp(20px, 5.5vw, 32px); line-height: 1.4; }
+      .manifesto-inner { max-width: 100%; }
 
       /* Values */
-      #valores { padding: 80px 20px; max-width: 100%; }
-      .values-grid { grid-template-columns: 1fr; }
-      .value-item { padding: 32px 24px; }
+      #valores { padding: 72px 20px; max-width: 100%; }
+      .values-grid { grid-template-columns: 1fr; margin-top: 48px; }
+      .value-item { padding: 28px 20px; }
+      .value-title { font-size: 11px; }
 
       /* Contact */
-      #contato { padding: 80px 20px 64px; }
+      #contato { padding: 72px 20px 56px; }
       .contact-inner { max-width: 100%; }
-      .contact-headline { font-size: clamp(44px, 14vw, 80px); margin-bottom: 48px; }
-      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .contact-headline { font-size: clamp(30px, 8vw, 52px); margin-bottom: 40px; line-height: 1.0; }
+      .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+      .contact-body { font-size: 14px; line-height: 1.8; }
+      .cta-primary { width: 100%; justify-content: center; padding: 18px 24px; }
+      .cta-secondary { width: 100%; justify-content: center; padding: 18px 0; }
+      .contact-actions { width: 100%; }
+
+      /* Números */
+      #numeros { grid-template-columns: repeat(2, 1fr); }
+      .numero-item { padding: 36px 20px; }
 
       /* Footer */
-      footer { padding: 24px 20px; flex-direction: column; gap: 12px; text-align: center; }
+      footer {
+        grid-template-columns: 1fr;
+        padding: 48px 20px 32px;
+        gap: 36px;
+      }
+      .footer-right { align-items: flex-start; }
+      .footer-bottom { flex-direction: column; gap: 8px; align-items: flex-start; }
+      .footer-center { align-items: flex-start; }
+      .footer-nav { align-items: flex-start; }
+      .footer-social-link, .footer-nav a { cursor: pointer; }
+    }
+
+    /* Touch device: remove sticky hover states */
+    @media (hover: none) and (pointer: coarse) {
+      .service-item:hover { padding-left: 0; border-color: rgba(255,255,255,0.08); transform: none; }
+      .service-item:hover .service-arrow { opacity: 0; }
+      .service-item:hover .service-name { letter-spacing: -0.025em; }
+      .service-item:hover .service-num { color: rgba(255,255,255,0.55); }
+      #sobre .pillar:hover { background: #fff; transform: none; box-shadow: none; }
+      .pillar:hover { background: #000; }
+      .value-item:hover { background: #000; }
+      .value-item:hover::before { opacity: 0; }
+      .value-item:hover .value-title { letter-spacing: 0.22em; }
+      .portfolio-fig:hover img { transform: none; filter: grayscale(20%); }
+      .portfolio-fig:hover .portfolio-fig-overlay { background: rgba(0,0,0,0); }
+      .portfolio-fig:hover .portfolio-fig-label,
+      .portfolio-fig:hover .portfolio-fig-title { color: rgba(255,255,255,0); transform: translateY(8px); }
+      .nav-cta:hover { border-color: rgba(255,255,255,0.2); background: transparent; }
+      .haze-invite:hover .haze-invite-text { border-color: rgba(255,255,255,0.22); }
     }
 
     /* ========================
@@ -1785,7 +1993,14 @@
     @media (max-width: 390px) {
       .hero-title { font-size: 22vw; }
       .gooey-text { font-size: 9vw; }
-      .contact-headline { font-size: 16vw; }
+      .contact-headline { font-size: clamp(26px, 7.5vw, 36px); }
+      .services-headline { font-size: clamp(28px, 8vw, 40px); }
+      .numero-item { padding: 28px 16px; }
+      .numero-val { font-size: clamp(40px, 10.5vw, 64px); }
+      .about-headline { font-size: clamp(26px, 7vw, 38px); }
+      .manifesto-quote { font-size: clamp(18px, 5vw, 28px); }
+      #hero { padding: 0 16px; }
+      #sobre, #servicos, #manifesto, #valores, #contato { padding-left: 16px; padding-right: 16px; }
     }
 
     /* ========================
@@ -1931,14 +2146,14 @@
       font-size: clamp(28px, 3.5vw, 52px);
       font-weight: 800;
       letter-spacing: -0.04em;
-      color: rgba(255,255,255,0.28);
+      color: rgba(255,255,255,0.45);
     }
     .numero-label {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.38);
+      color: rgba(255,255,255,0.60);
       margin-top: 16px;
     }
     @media (max-width: 1024px) {
@@ -2055,6 +2270,69 @@
     @media (max-width: 768px) {
       .cta-primary, .cta-secondary { cursor: pointer; }
     }
+
+    /* ========================
+       CONTRAST MASTER OVERRIDE
+       Garante que NENHUM texto fique invisível
+    ======================== */
+
+    /* SEÇÕES ESCURAS — tudo branco real */
+    .hero-eyebrow,
+    .hero-tagline,
+    .spline-text-label,
+    .spline-text-headline,
+    .gooey-label,
+    .services-desc,
+    .service-num,
+    .service-name,
+    .service-desc,
+    .numero-label,
+    .numero-suffix,
+    .value-title,
+    .value-desc,
+    .manifesto-quote,
+    .manifesto-source,
+    .marquee-item,
+    .pillar-name,
+    .pillar-desc,
+    .nav-link a,
+    .footer-copy,
+    .footer-made,
+    .footer-tagline,
+    .footer-nav a,
+    .footer-social-link,
+    .footer-brand {
+      color: rgba(255,255,255,0.92) !important;
+    }
+
+    /* Itens de apoio um pouco menos intensos */
+    .service-num,
+    .numero-label,
+    .footer-copy,
+    .footer-made,
+    .parceiros-label {
+      color: rgba(255,255,255,0.62) !important;
+    }
+
+    /* SEÇÕES BRANCAS — preto puro */
+    #sobre .section-label,
+    #sobre .about-headline,
+    #sobre .about-body p,
+    #sobre .pillar-name,
+    #sobre .pillar-desc,
+    #manifesto .manifesto-quote,
+    #manifesto .manifesto-dim,
+    #manifesto .manifesto-source,
+    #contato .contact-headline,
+    #contato .contact-body,
+    #contato .contact-body p {
+      color: #111 !important;
+    }
+
+    #sobre .section-label { color: #000 !important; }
+    #sobre .pillar-name   { color: #000 !important; font-weight: 700 !important; }
+    #sobre .pillar-desc   { color: #333 !important; }
+    #manifesto .manifesto-source { color: rgba(0,0,0,0.60) !important; }
 
     /* ========================
        SCROLL PROGRESS BAR
@@ -2181,14 +2459,7 @@
     }
     #whatsapp-float .wap-label-mobile { display: none; }
     @media (max-width: 768px) {
-      #whatsapp-float {
-        bottom: 20px;
-        right: 20px;
-        padding: 14px 16px;
-        cursor: pointer;
-      }
-      #whatsapp-float .wap-label-desktop { display: none; }
-      #whatsapp-float .wap-label-mobile { display: inline; }
+      #whatsapp-float { display: none; }
     }
 
     /* ========================
@@ -2249,7 +2520,7 @@
       font-weight: 600;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.50);
+      color: rgba(255,255,255,0.75);
       text-decoration: none;
       transition: color 0.3s;
       cursor: none;
@@ -2270,9 +2541,8 @@
       font-weight: 600;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.50);
+      color: rgba(255,255,255,0.78);
       text-decoration: none;
-      transition: color 0.3s;
       cursor: none;
       padding-bottom: 2px;
       border-bottom: 1px solid transparent;
@@ -2416,9 +2686,80 @@
     </div>
     <!-- Cursor glow -->
     <div class="hero-glow" id="heroGlow"></div>
-    <p class="hero-eyebrow">Branding &amp; Identidade Visual — Brasil</p>
+    <p class="hero-eyebrow">Branding &amp; Identidade Visual, Brasil</p>
     <h1 class="hero-title">HAZE</h1>
-    <p class="hero-tagline">Sua marca precisa ser lembrada. A gente cuida disso.</p>
+    <p class="hero-tagline">Sua marca precisa ser lembrada, a gente cuida disso.</p>
+
+    <!-- Parceiros no hero -->
+    <div id="parceiros">
+      <div class="parceiros-fade" aria-hidden="true"></div>
+      <span class="parceiros-dot" aria-hidden="true"></span>
+      <span class="parceiros-label">Parceiros certificados</span>
+      <div class="parceiros-logos">
+
+        <!-- Meta — infinity loop azul -->
+        <div class="parceiro-item">
+          <svg class="parceiro-svg" viewBox="0 0 62 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="pMeta" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#1AABFF"/>
+                <stop offset="100%" stop-color="#0052D9"/>
+              </linearGradient>
+            </defs>
+            <path d="M5,19 C5,11.5 9.5,5 17,5 C21.5,5 24.5,8 27,12 C28,13.5 29,16 31,19 C33,22 34,24.5 37,28 C39.5,31 42.5,33 47,33 C54.5,33 57,25.5 57,19 C57,12.5 53.5,5 47,5 C42.5,5 39.5,8 37,12 C34,15.5 33,17 31,19 C29,22 28,24.5 27,26 C24.5,30 21.5,33 17,33 C9.5,33 5,26.5 5,19Z" fill="url(#pMeta)"/>
+          </svg>
+          <div class="parceiro-info">
+            <span class="parceiro-name">Meta</span>
+            <span class="parceiro-type">Business Partner</span>
+          </div>
+        </div>
+
+        <!-- Google Ads — A colorido (azul, amarelo, verde) -->
+        <div class="parceiro-item">
+          <svg class="parceiro-svg" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="36" y="4"  width="12" height="44" rx="6" fill="#4285F4"/>
+            <rect x="20" y="18" width="12" height="30" rx="6" fill="#FBBC04"/>
+            <circle cx="8" cy="42" r="8" fill="#34A853"/>
+          </svg>
+          <div class="parceiro-info">
+            <span class="parceiro-name">Google Ads</span>
+            <span class="parceiro-type">Certified Partner</span>
+          </div>
+        </div>
+
+        <!-- LinkedIn — caixa azul com "in" -->
+        <div class="parceiro-item">
+          <svg class="parceiro-svg" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="50" height="50" rx="9" fill="#0A66C2"/>
+            <text x="26" y="37" font-family="Georgia, serif" font-size="26" font-weight="700" fill="white" text-anchor="middle">in</text>
+          </svg>
+          <div class="parceiro-info">
+            <span class="parceiro-name">LinkedIn</span>
+            <span class="parceiro-type">Marketing Partner</span>
+          </div>
+        </div>
+
+        <!-- mLabs — triângulo laranja gradiente -->
+        <div class="parceiro-item">
+          <svg class="parceiro-svg" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="pMLabs" x1="50%" y1="0%" x2="50%" y2="100%">
+                <stop offset="0%" stop-color="#FFA500"/>
+                <stop offset="55%" stop-color="#FF5500"/>
+                <stop offset="100%" stop-color="#DD1A00"/>
+              </linearGradient>
+            </defs>
+            <path d="M26,3 C27.8,3 29.4,4 30.2,5.6 L49.6,44.2 C51.4,47.6 48.9,51.5 45,51.5 L7,51.5 C3.1,51.5 0.6,47.6 2.4,44.2 L21.8,5.6 C22.6,4 24.2,3 26,3 Z" fill="url(#pMLabs)"/>
+            <path d="M26,16 L38,40 L14,40 Z" fill="rgba(255,255,255,0.2)"/>
+          </svg>
+          <div class="parceiro-info">
+            <span class="parceiro-name">mLabs</span>
+            <span class="parceiro-type">Partner</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </section>
 
   <!-- SPLINE / ROBOT -->
@@ -2553,15 +2894,15 @@
       <div class="about-grid">
         <div class="about-headline reveal">
           Branding não é sobre<br>
-          parecer bonito.<br>
-          <strong>É sobre ser lembrado,<br>escolhido e desejado.</strong>
+          parecer bonito,<br>
+          <strong>é sobre ser lembrado,<br>escolhido e desejado.</strong>
         </div>
         <div class="about-body reveal">
           <p>
-            A HAZE é uma agência de branding e identidade visual. Criamos marcas completas — do posicionamento estratégico à identidade visual — para empresas que querem ocupar espaço real na cabeça dos seus clientes.
+            A HAZE é uma agência de branding e identidade visual. Criamos marcas completas, do posicionamento estratégico à identidade visual, para empresas que querem ocupar espaço real na cabeça dos seus clientes.
           </p>
           <p>
-            Unimos estratégia e estética para construir marcas que comunicam valor antes mesmo de abrir a boca. Porque uma marca forte não grita para ser ouvida — ela fica na mente porque merece estar lá.
+            Unimos estratégia e estética para construir marcas que comunicam valor antes mesmo de abrir a boca. Porque uma marca forte não grita para ser ouvida, ela fica na mente porque merece estar lá.
           </p>
           <p>
             Se o seu negócio precisa de uma marca que gere confiança, desejo e resultado real, você está no lugar certo.
@@ -2598,7 +2939,7 @@
           O que fazemos.
         </h2>
         <p class="services-desc reveal">
-          Do posicionamento estratégico à execução visual — entregamos cada camada da sua marca com precisão e intenção. Passe o mouse para entender cada serviço.
+          Do posicionamento estratégico à execução visual, entregamos cada camada da sua marca com precisão e intenção. Passe o mouse para entender cada serviço.
         </p>
       </div>
 
@@ -2608,7 +2949,7 @@
             <span class="service-num">01</span>
             <div class="service-name-wrap">
               <span class="service-name">Posicionamento de Marca</span>
-              <span class="service-desc">Definimos onde sua marca vive na cabeça do cliente — e por que ele vai escolher você</span>
+              <span class="service-desc">Definimos onde sua marca vive na cabeça do cliente e por que ele vai escolher você.</span>
             </div>
           </div>
           <span class="service-arrow">&#x2192;</span>
@@ -2618,7 +2959,7 @@
             <span class="service-num">02</span>
             <div class="service-name-wrap">
               <span class="service-name">Identidade Visual</span>
-              <span class="service-desc">Logo, paleta, tipografia e sistema completo — o rosto da sua marca em todos os canais</span>
+              <span class="service-desc">Logo, paleta, tipografia e sistema completo, o rosto da sua marca em todos os canais.</span>
             </div>
           </div>
           <span class="service-arrow">&#x2192;</span>
@@ -2628,7 +2969,7 @@
             <span class="service-num">03</span>
             <div class="service-name-wrap">
               <span class="service-name">Direção Criativa</span>
-              <span class="service-desc">A visão que guia cada decisão estética — do conceito ao detalhe final</span>
+              <span class="service-desc">A visão que guia cada decisão estética, do conceito ao detalhe final.</span>
             </div>
           </div>
           <span class="service-arrow">&#x2192;</span>
@@ -2638,7 +2979,7 @@
             <span class="service-num">04</span>
             <div class="service-name-wrap">
               <span class="service-name">Linguagem e Tom de Voz</span>
-              <span class="service-desc">Como sua marca escreve, fala e se relaciona — consistência que gera reconhecimento</span>
+              <span class="service-desc">Como sua marca escreve, fala e se relaciona, com consistência que gera reconhecimento.</span>
             </div>
           </div>
           <span class="service-arrow">&#x2192;</span>
@@ -2658,7 +2999,7 @@
             <span class="service-num">06</span>
             <div class="service-name-wrap">
               <span class="service-name">Presença Digital</span>
-              <span class="service-desc">Feed, perfil e site com identidade real — sua marca ocupando espaço onde seu cliente vive</span>
+              <span class="service-desc">Feed, perfil e site com identidade real, sua marca ocupando espaço onde seu cliente vive.</span>
             </div>
           </div>
           <span class="service-arrow">&#x2192;</span>
@@ -2668,7 +3009,7 @@
             <span class="service-num">07</span>
             <div class="service-name-wrap">
               <span class="service-name">Campanhas Visuais</span>
-              <span class="service-desc">Peças que param o scroll, geram desejo e ficam na memória — comunicação que vende</span>
+              <span class="service-desc">Peças que param o scroll, geram desejo e ficam na memória, comunicação que vende.</span>
             </div>
           </div>
           <span class="service-arrow">&#x2192;</span>
@@ -2678,7 +3019,7 @@
             <span class="service-num">08</span>
             <div class="service-name-wrap">
               <span class="service-name">Percepção de Marca</span>
-              <span class="service-desc">Auditoria e gestão do que as pessoas sentem quando pensam em você — isso se constrói</span>
+              <span class="service-desc">Auditoria e gestão do que as pessoas sentem quando pensam em você, isso se constrói.</span>
             </div>
           </div>
           <span class="service-arrow">&#x2192;</span>
@@ -2826,7 +3167,7 @@
   <section id="manifesto" class="section-light">
     <div class="manifesto-inner">
       <p class="manifesto-quote reveal">
-        <span class="manifesto-dim">Marcas não são logotipos.</span> São a soma de cada vez que uma pessoa pensa em você — <span class="manifesto-dim">e o que ela sente nesse momento.</span>
+        <span class="manifesto-dim">Marcas não são logotipos,</span> são a soma de cada vez que uma pessoa pensa em você, <span class="manifesto-dim">e o que ela sente nesse momento.</span>
       </p>
       <p class="manifesto-source reveal">HAZE &nbsp;&nbsp; Manifesto</p>
     </div>
@@ -2838,7 +3179,7 @@
     <div class="values-grid reveal">
       <div class="value-item">
         <p class="value-title">Clareza acima de tudo</p>
-        <p class="value-desc">Cada palavra, imagem e escolha carrega intenção. Comunicamos sem ruído — o cliente entende o valor antes de perguntar o preço.</p>
+        <p class="value-desc">Cada palavra, imagem e escolha carrega intenção. Comunicamos sem ruído, o cliente entende o valor antes de perguntar o preço.</p>
       </div>
       <div class="value-item">
         <p class="value-title">Estética que vende</p>
@@ -2846,7 +3187,7 @@
       </div>
       <div class="value-item">
         <p class="value-title">Estratégia real</p>
-        <p class="value-desc">Beleza sem direção não resolve nada. Todo projeto começa de onde sua marca precisa chegar — e trabalhamos de trás para frente.</p>
+        <p class="value-desc">Beleza sem direção não resolve nada. Todo projeto começa de onde sua marca precisa chegar e trabalhamos de trás para frente.</p>
       </div>
       <div class="value-item">
         <p class="value-title">Presença consistente</p>
@@ -2854,7 +3195,7 @@
       </div>
       <div class="value-item">
         <p class="value-title">Percepção controlada</p>
-        <p class="value-desc">O que as pessoas sentem quando pensam em você não é acaso — é construção. A gente faz isso com método e intenção.</p>
+        <p class="value-desc">O que as pessoas sentem quando pensam em você não é acaso, é construção. A gente faz isso com método e intenção.</p>
       </div>
       <div class="value-item">
         <p class="value-title">Feito para durar</p>
@@ -2870,7 +3211,7 @@
       <div class="contact-grid">
         <div>
           <p class="contact-body reveal">
-            Se você tem um negócio e quer uma marca que gere confiança, autoridade e vendas reais — a HAZE está pronta para começar. Resposta em menos de 24h.
+            Se você tem um negócio e quer uma marca que gere confiança, autoridade e vendas reais, a HAZE está pronta para começar. Resposta em menos de 24h.
           </p>
           <p class="contact-body reveal" style="margin-top: 20px; font-size: 13px;">
             Seja do zero ou reposicionando o que já existe, temos o processo e a visão para levar sua marca onde ela precisa estar.
@@ -2895,52 +3236,6 @@
     </div>
   </section>
 
-  <!-- PARCEIROS -->
-  <div id="parceiros">
-    <span class="parceiros-label">Nossos parceiros</span>
-    <div class="parceiros-logos">
-
-      <!-- mLabs -->
-      <div class="parceiro-item">
-        <svg viewBox="0 0 120 44" fill="none" xmlns="http://www.w3.org/2000/svg" class="parceiro-svg">
-          <rect x="1" y="1" width="118" height="42" rx="5" stroke="white" stroke-opacity="0.3" stroke-width="1"/>
-          <text x="14" y="18" font-family="Open Sans, sans-serif" font-size="10" font-weight="700" fill="white" letter-spacing="0.5">▲ mLabs</text>
-          <text x="14" y="32" font-family="Open Sans, sans-serif" font-size="8" font-weight="400" fill="white" fill-opacity="0.5" letter-spacing="1">Partner</text>
-        </svg>
-      </div>
-
-      <!-- LinkedIn -->
-      <div class="parceiro-item">
-        <svg viewBox="0 0 155 44" fill="none" xmlns="http://www.w3.org/2000/svg" class="parceiro-svg">
-          <rect x="1" y="7" width="28" height="28" rx="3" fill="white" fill-opacity="0.1" stroke="white" stroke-opacity="0.3" stroke-width="1"/>
-          <text x="8" y="26" font-family="Open Sans, sans-serif" font-size="14" font-weight="800" fill="white">in</text>
-          <text x="36" y="19" font-family="Open Sans, sans-serif" font-size="9" font-weight="700" fill="white" letter-spacing="1">MARKETING</text>
-          <text x="36" y="31" font-family="Open Sans, sans-serif" font-size="9" font-weight="400" fill="white" fill-opacity="0.5" letter-spacing="1">PARTNERS</text>
-        </svg>
-      </div>
-
-      <!-- Meta -->
-      <div class="parceiro-item">
-        <svg viewBox="0 0 140 44" fill="none" xmlns="http://www.w3.org/2000/svg" class="parceiro-svg">
-          <text x="2" y="28" font-family="Open Sans, sans-serif" font-size="24" font-weight="800" fill="white">∞</text>
-          <text x="34" y="22" font-family="Open Sans, sans-serif" font-size="16" font-weight="700" fill="white" letter-spacing="-0.5">Meta</text>
-          <text x="34" y="35" font-family="Open Sans, sans-serif" font-size="8" font-weight="400" fill="white" fill-opacity="0.5" letter-spacing="0.5">Business Partner</text>
-        </svg>
-      </div>
-
-      <!-- Google Ads -->
-      <div class="parceiro-item">
-        <svg viewBox="0 0 175 44" fill="none" xmlns="http://www.w3.org/2000/svg" class="parceiro-svg">
-          <polygon points="12,8 22,8 27,20 22,32 12,32 7,20" fill="none" stroke="white" stroke-opacity="0.3" stroke-width="1"/>
-          <polygon points="14,14 20,14 23,20 20,26 14,26 11,20" fill="white" fill-opacity="0.15"/>
-          <text x="34" y="21" font-family="Open Sans, sans-serif" font-size="12" font-weight="600" fill="white" letter-spacing="-0.3">Google Ads</text>
-          <text x="34" y="33" font-family="Open Sans, sans-serif" font-size="8" font-weight="400" fill="white" fill-opacity="0.5" letter-spacing="0.5">Certified Partner</text>
-        </svg>
-      </div>
-
-    </div>
-  </div>
-
   <!-- FOOTER -->
   <footer>
     <div class="footer-left">
@@ -2964,8 +3259,8 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="footer-copy">© 2025 HAZE — Todos os direitos reservados</span>
-      <span class="footer-made">Branding &amp; Identidade Visual — Brasil</span>
+      <span class="footer-copy">© 2025 HAZE. Todos os direitos reservados</span>
+      <span class="footer-made">Branding &amp; Identidade Visual, Brasil</span>
     </div>
   </footer>
 
@@ -3329,35 +3624,48 @@
       const isMobile = window.innerWidth <= 768;
       const isSmallMobile = window.innerWidth <= 390;
 
-      // Centro da cabeça do robô (em coordenadas do spline-section)
-      const headCenterX = w * 0.50;
-      const headCenterY = isMobile ? h * 0.30 : h * 0.32;
-      const headHalfWidth = isMobile ? 35 : 55;
-
       // Tamanho do balão (depende do viewport)
       let bubbleW = 220;
-      if (isSmallMobile) bubbleW = 165;
-      else if (isMobile) bubbleW = 180;
+      if (isSmallMobile) bubbleW = 118;
+      else if (isMobile) bubbleW = 130;
       else if (window.innerWidth <= 900) bubbleW = 200;
 
-      const bubbleH = isMobile ? 110 : 130;
+      const bubbleH = isMobile ? 88 : 130;
 
-      // Distâncias diagonais entre o balão e a cabeça
-      const offsetRight = 60;  // quanto à direita da cabeça
-      const offsetUp = 80;     // quanto acima da cabeça
+      let left, top;
 
-      // Balão posicionado em diagonal acima-direita da cabeça
-      let left = headCenterX + headHalfWidth + offsetRight;
-      let top = headCenterY - bubbleH - offsetUp;
+      if (isMobile) {
+        // Mobile: balão à DIREITA da cabeça, seta aponta para a esquerda
+        const headCenterX = w * 0.50;
+        const headCenterY = h * 0.26;   // cabeça no quarto superior
+        const headHalfWidth = 32;
 
-      // Não deixar sair da tela
-      const maxLeft = w - bubbleW - 16;
-      if (left > maxLeft) left = maxLeft;
-      if (left < 16) left = 16;
-      if (top < 16) top = 16;
+        left = headCenterX + headHalfWidth + 22;
+        top  = headCenterY - bubbleH / 2; // centralizado verticalmente com a cabeça
+
+        const maxLeft = w - bubbleW - 12;
+        if (left > maxLeft) left = maxLeft;
+        if (left < 12) left = 12;
+        if (top < 12) top = 12;
+      } else {
+        // Desktop: balão acima-direita, seta aponta para baixo-esquerda
+        const headCenterX = w * 0.50;
+        const headCenterY = h * 0.32;
+        const headHalfWidth = 55;
+        const offsetRight = 60;
+        const offsetUp = 80;
+
+        left = headCenterX + headHalfWidth + offsetRight;
+        top  = headCenterY - bubbleH - offsetUp;
+
+        const maxLeft = w - bubbleW - 16;
+        if (left > maxLeft) left = maxLeft;
+        if (left < 16) left = 16;
+        if (top < 16) top = 16;
+      }
 
       hazeInvite.style.left = left + 'px';
-      hazeInvite.style.top = top + 'px';
+      hazeInvite.style.top  = top  + 'px';
     }
 
     // Reposiciona em resize
@@ -3513,6 +3821,31 @@
     document.getElementById('hazeChatInput').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') handleChatSend();
     });
+
+    // ========================
+    // VALUES STAGGER ANIMATION
+    // ========================
+    (function initValuesStagger() {
+      const valueItems = document.querySelectorAll('.value-item');
+      if (!valueItems.length) return;
+      valueItems.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(28px)';
+        el.style.transition = 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1), background 0.35s ease';
+      });
+      const obs = new IntersectionObserver(entries => {
+        if (entries.some(e => e.isIntersecting)) {
+          valueItems.forEach((el, i) => {
+            setTimeout(() => {
+              el.style.opacity = '1';
+              el.style.transform = 'translateY(0)';
+            }, i * 90);
+          });
+          obs.disconnect();
+        }
+      }, { threshold: 0.1 });
+      if (valueItems[0]) obs.observe(valueItems[0]);
+    })();
 
     // ========================
     // SCROLL PROGRESS BAR
