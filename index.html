@@ -1252,13 +1252,14 @@
        SERVICES
     ======================== */
     #servicos {
-      padding: 160px 56px;
+      padding: 160px 0 100px;
       border-top: 1px solid var(--gray-dim);
     }
 
     .services-inner {
       max-width: 1440px;
       margin: 0 auto;
+      padding: 0 56px;
     }
 
     .services-top {
@@ -1266,7 +1267,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 80px;
       align-items: end;
-      margin-bottom: 80px;
+      margin-bottom: 64px;
     }
 
     .services-headline {
@@ -1283,89 +1284,160 @@
       font-size: 16px;
       font-weight: 300;
       line-height: 1.85;
-      color: rgba(255,255,255,0.92);
+      color: rgba(255,255,255,0.65);
       padding-bottom: 6px;
     }
 
-    .services-list {
-      border-top: 1px solid rgba(255,255,255,0.12);
-      perspective: 1200px;
+    /* Galeria grid — 4 colunas × 2 linhas */
+    .services-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3px;
+      padding: 0 56px;
     }
 
-    .service-item {
+    .svc-card {
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease;
+      cursor: none;
+    }
+
+    .svc-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 32px 72px rgba(0,0,0,0.75);
+      z-index: 2;
+    }
+
+    .svc-card img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+      pointer-events: none;
+    }
+
+    .svc-card:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Hint oculto no desktop — usado só no mobile */
+    .svc-hint { display: none; }
+
+    /* ========================
+       SERVICES LIGHTBOX
+    ======================== */
+    .svc-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0,0,0,0.96);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .svc-lightbox.open { display: flex; opacity: 1; }
+
+    .svc-lb-img {
+      max-height: 88vh;
+      max-width: 80vw;
+      object-fit: contain;
+      display: block;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      user-select: none;
+    }
+
+    .svc-lb-img.changing {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+
+    .svc-lb-close {
+      position: fixed;
+      top: 24px;
+      right: 28px;
+      background: none;
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.7);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 14px;
+      z-index: 10;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 36px 0;
-      border-bottom: 1px solid var(--cinza);
-      cursor: none;
-      transition:
-        padding-left 0.5s cubic-bezier(0.76, 0, 0.24, 1),
-        border-color 0.3s;
-      position: relative;
+      justify-content: center;
+      transition: border-color 0.2s, color 0.2s;
     }
 
-    .service-item::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: var(--ciano);
-      transform: scaleY(0);
-      transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
-      transform-origin: bottom;
+    .svc-lb-close:hover { border-color: white; color: white; }
+
+    .svc-lb-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.7);
+      width: 52px;
+      height: 52px;
+      cursor: pointer;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      z-index: 10;
     }
 
-    .service-item:hover {
-      padding-left: 24px;
-      border-color: rgba(24,183,196,0.25);
-    }
-
-    .service-item:hover::before {
-      transform: scaleY(1);
-    }
-
-    .service-left { display: flex; align-items: baseline; gap: 22px; }
-
-    .service-num {
-      font-size: 11px;
-      font-weight: 600;
+    .svc-lb-nav:hover {
+      background: rgba(24,183,196,0.15);
+      border-color: var(--ciano);
       color: var(--ciano);
-      letter-spacing: 0.12em;
-      min-width: 28px;
-      transition: color 0.3s;
-      opacity: 0.65;
     }
 
-    .service-item:hover .service-num { opacity: 1; }
+    .svc-lb-prev { left: 24px; }
+    .svc-lb-next { right: 24px; }
 
-    .service-name {
-      font-family: var(--font-display);
-      font-size: clamp(26px, 3.2vw, 50px);
-      font-weight: 800;
-      letter-spacing: 0.02em;
+    .svc-lb-counter {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.35em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.88);
-      transition: color 0.3s;
+      color: rgba(255,255,255,0.30);
     }
 
-    .service-item:hover .service-name {
-      color: white;
+    .svc-lb-dots {
+      position: fixed;
+      bottom: 52px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
     }
 
-    .service-arrow {
-      font-size: 18px;
-      color: var(--ciano);
-      opacity: 0;
-      transform: translateX(-16px);
-      transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    .svc-lb-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      transition: background 0.2s, width 0.2s;
     }
 
-    .service-item:hover .service-arrow {
-      opacity: 1;
-      transform: translateX(0);
+    .svc-lb-dot.active {
+      background: var(--ciano);
+      width: 16px;
+      border-radius: 2px;
     }
 
     /* ========================
@@ -2162,14 +2234,11 @@
       /* Services */
       #servicos { padding: 72px 20px; }
       .services-inner { max-width: 100%; }
-      .services-top { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
+      .services-inner { padding: 0 16px; }
+      .services-top { grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; }
       .services-headline { white-space: normal; font-size: clamp(34px, 9vw, 52px); }
-      .services-desc { display: none; }
-      .service-item { padding: 20px 0; }
-      .service-item:hover { padding-left: 0; }
-      .service-item:active { padding-left: 12px; }
-      .service-name { font-size: clamp(17px, 4.8vw, 26px); }
-      .service-arrow { display: none; }
+      .services-gallery { grid-template-columns: repeat(2, 1fr); gap: 3px; padding: 0 16px; }
+      .svc-hint { display: flex; padding: 16px 16px 0; }
 
       /* Pong */
       #pong-section { height: 55svh; }
@@ -3244,6 +3313,31 @@
     </div>
   </section>
 
+  <!-- SERVICES -->
+  <section id="servicos">
+    <div class="services-inner">
+      <div class="services-top">
+        <h2 class="services-headline reveal">
+          O que fazemos.
+        </h2>
+        <p class="services-desc reveal">
+          Do posicionamento estratégico à execução visual, entregamos cada camada da sua marca com precisão e intenção.
+        </p>
+      </div>
+    </div>
+    <div class="services-gallery" id="svcGallery">
+      <div class="svc-card"><img src="serviços/k1.png" alt="Posicionamento de Marca" draggable="false"/></div>
+      <div class="svc-card"><img src="serviços/k2.png" alt="Identidade Visual" draggable="false"/></div>
+      <div class="svc-card"><img src="serviços/k3.png" alt="Direção Criativa" draggable="false"/></div>
+      <div class="svc-card"><img src="serviços/k4.png" alt="Linguagem e Tom de Voz" draggable="false"/></div>
+      <div class="svc-card"><img src="serviços/k5.png" alt="Estratégia de Comunicação" draggable="false"/></div>
+      <div class="svc-card"><img src="serviços/k6.png" alt="Presença Digital" draggable="false"/></div>
+      <div class="svc-card"><img src="serviços/k7.png" alt="Campanhas Visuais" draggable="false"/></div>
+      <div class="svc-card"><img src="serviços/k8.png" alt="Percepção de Marca" draggable="false"/></div>
+    </div>
+    <p class="svc-hint">Arraste para explorar</p>
+  </section>
+
   <!-- PORTFOLIO GALLERY 3D -->
   <section id="portfolio">
     <div class="pgallery-wrap">
@@ -3335,103 +3429,6 @@
           </svg>
           <p class="pillar-name">Presença</p>
           <p class="pillar-desc">Marcas que geram vendas, autoridade e fidelização. Beleza sem retorno não faz parte do nosso vocabulário.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section id="servicos">
-    <div class="services-inner">
-      <div class="services-top">
-        <h2 class="services-headline reveal">
-          O que fazemos.
-        </h2>
-        <p class="services-desc reveal">
-          Do posicionamento estratégico à execução visual, entregamos cada camada da sua marca com precisão e intenção. Passe o mouse para entender cada serviço.
-        </p>
-      </div>
-
-      <div class="services-list">
-        <div class="service-item">
-          <div class="service-left">
-            <span class="service-num">01</span>
-            <div class="service-name-wrap">
-              <span class="service-name">Posicionamento de Marca</span>
-              <span class="service-desc">Definimos onde sua marca vive na cabeça do cliente e por que ele vai escolher você.</span>
-            </div>
-          </div>
-          <span class="service-arrow">&#x2192;</span>
-        </div>
-        <div class="service-item">
-          <div class="service-left">
-            <span class="service-num">02</span>
-            <div class="service-name-wrap">
-              <span class="service-name">Identidade Visual</span>
-              <span class="service-desc">Logo, paleta, tipografia e sistema completo, o rosto da sua marca em todos os canais.</span>
-            </div>
-          </div>
-          <span class="service-arrow">&#x2192;</span>
-        </div>
-        <div class="service-item">
-          <div class="service-left">
-            <span class="service-num">03</span>
-            <div class="service-name-wrap">
-              <span class="service-name">Direção Criativa</span>
-              <span class="service-desc">A visão que guia cada decisão estética, do conceito ao detalhe final.</span>
-            </div>
-          </div>
-          <span class="service-arrow">&#x2192;</span>
-        </div>
-        <div class="service-item">
-          <div class="service-left">
-            <span class="service-num">04</span>
-            <div class="service-name-wrap">
-              <span class="service-name">Linguagem e Tom de Voz</span>
-              <span class="service-desc">Como sua marca escreve, fala e se relaciona, com consistência que gera reconhecimento.</span>
-            </div>
-          </div>
-          <span class="service-arrow">&#x2192;</span>
-        </div>
-        <div class="service-item">
-          <div class="service-left">
-            <span class="service-num">05</span>
-            <div class="service-name-wrap">
-              <span class="service-name">Estratégia de Comunicação</span>
-              <span class="service-desc">O plano que conecta você ao cliente certo, no momento certo, com a mensagem certa</span>
-            </div>
-          </div>
-          <span class="service-arrow">&#x2192;</span>
-        </div>
-        <div class="service-item">
-          <div class="service-left">
-            <span class="service-num">06</span>
-            <div class="service-name-wrap">
-              <span class="service-name">Presença Digital</span>
-              <span class="service-desc">Feed, perfil e site com identidade real, sua marca ocupando espaço onde seu cliente vive.</span>
-            </div>
-          </div>
-          <span class="service-arrow">&#x2192;</span>
-        </div>
-        <div class="service-item">
-          <div class="service-left">
-            <span class="service-num">07</span>
-            <div class="service-name-wrap">
-              <span class="service-name">Campanhas Visuais</span>
-              <span class="service-desc">Peças que param o scroll, geram desejo e ficam na memória, comunicação que vende.</span>
-            </div>
-          </div>
-          <span class="service-arrow">&#x2192;</span>
-        </div>
-        <div class="service-item">
-          <div class="service-left">
-            <span class="service-num">08</span>
-            <div class="service-name-wrap">
-              <span class="service-name">Percepção de Marca</span>
-              <span class="service-desc">Auditoria e gestão do que as pessoas sentem quando pensam em você, isso se constrói.</span>
-            </div>
-          </div>
-          <span class="service-arrow">&#x2192;</span>
         </div>
       </div>
     </div>
@@ -3605,6 +3602,25 @@
     </div>
   </footer>
 
+  <!-- SERVICES LIGHTBOX -->
+  <div class="svc-lightbox" id="svcLightbox">
+    <button class="svc-lb-close" id="svcLbClose">&#x2715;</button>
+    <button class="svc-lb-nav svc-lb-prev" id="svcLbPrev">&#x2190;</button>
+    <img class="svc-lb-img" id="svcLbImg" src="" alt="Serviço HAZE"/>
+    <button class="svc-lb-nav svc-lb-next" id="svcLbNext">&#x2192;</button>
+    <div class="svc-lb-dots">
+      <div class="svc-lb-dot active"></div>
+      <div class="svc-lb-dot"></div>
+      <div class="svc-lb-dot"></div>
+      <div class="svc-lb-dot"></div>
+      <div class="svc-lb-dot"></div>
+      <div class="svc-lb-dot"></div>
+      <div class="svc-lb-dot"></div>
+      <div class="svc-lb-dot"></div>
+    </div>
+    <p class="svc-lb-counter" id="svcLbCounter">1 / 8</p>
+  </div>
+
   <script>
     // ========================
     // SPLINE WATERMARK REMOVE
@@ -3689,25 +3705,99 @@
     }, { threshold: 0.12 });
     revealEls.forEach(el => revealObserver.observe(el));
 
-    // Stagger de entrada nos itens de serviço
-    const serviceItems = document.querySelectorAll('.service-item');
-    const serviceObserver = new IntersectionObserver((entries) => {
-      if (entries.some(e => e.isIntersecting)) {
-        serviceItems.forEach((item, i) => {
-          setTimeout(() => {
-            item.style.opacity = '1';
-            item.style.transform = 'translateY(0) translateZ(0)';
-          }, i * 80);
-        });
-        serviceObserver.disconnect();
+    // ========================
+    // SERVICES LIGHTBOX
+    // ========================
+    (function() {
+      const srcs = [
+        'serviços/k1.png','serviços/k2.png','serviços/k3.png','serviços/k4.png',
+        'serviços/k5.png','serviços/k6.png','serviços/k7.png','serviços/k8.png'
+      ];
+      let current = 0;
+
+      const lb       = document.getElementById('svcLightbox');
+      const lbImg    = document.getElementById('svcLbImg');
+      const lbCount  = document.getElementById('svcLbCounter');
+      const lbDots   = document.querySelectorAll('.svc-lb-dot');
+
+      function updateDots() {
+        lbDots.forEach((d, i) => d.classList.toggle('active', i === current));
+        lbCount.textContent = (current + 1) + ' / ' + srcs.length;
       }
-    }, { threshold: 0.1 });
-    serviceItems.forEach(item => {
-      item.style.opacity = '0';
-      item.style.transform = 'translateY(22px) translateZ(0)';
-      item.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.34,1.2,0.64,1), padding-left 0.5s cubic-bezier(0.76,0,0.24,1), border-color 0.3s';
-    });
-    if (serviceItems.length) serviceObserver.observe(serviceItems[0]);
+
+      function openLb(idx) {
+        current = idx;
+        lbImg.src = srcs[current];
+        updateDots();
+        lb.style.display = 'flex';
+        requestAnimationFrame(() => lb.classList.add('open'));
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLb() {
+        lb.classList.remove('open');
+        setTimeout(() => { lb.style.display = 'none'; document.body.style.overflow = ''; }, 300);
+      }
+
+      function go(dir) {
+        current = (current + dir + srcs.length) % srcs.length;
+        lbImg.classList.add('changing');
+        setTimeout(() => {
+          lbImg.src = srcs[current];
+          updateDots();
+          lbImg.classList.remove('changing');
+        }, 180);
+      }
+
+      // Clique nos cards
+      document.querySelectorAll('.svc-card').forEach((card, i) => {
+        card.addEventListener('click', () => openLb(i));
+      });
+
+      document.getElementById('svcLbClose').addEventListener('click', closeLb);
+      document.getElementById('svcLbPrev').addEventListener('click', () => go(-1));
+      document.getElementById('svcLbNext').addEventListener('click', () => go(1));
+
+      // Fechar clicando fora da imagem
+      lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+
+      // Teclado
+      document.addEventListener('keydown', e => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape')      closeLb();
+        if (e.key === 'ArrowLeft')   go(-1);
+        if (e.key === 'ArrowRight')  go(1);
+      });
+
+      // Swipe mobile
+      let tx = 0;
+      lb.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+      lb.addEventListener('touchend',   e => {
+        const dx = e.changedTouches[0].clientX - tx;
+        if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+      });
+    })();
+
+    // Animação de entrada nos cards de serviço
+    (function() {
+      const cards = document.querySelectorAll('.svc-card');
+      if (!cards.length) return;
+      const obs = new IntersectionObserver((entries) => {
+        if (entries.some(e => e.isIntersecting)) {
+          cards.forEach((card, i) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(24px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.22,1,0.36,1)';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, i * 60);
+          });
+          obs.disconnect();
+        }
+      }, { threshold: 0.1 });
+      obs.observe(cards[0]);
+    })();
 
     // ========================
     // GOOEY TEXT MORPH
@@ -4398,5 +4488,6 @@
     })();
 
   </script>
+
 </body>
 </html>
