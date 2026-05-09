@@ -4246,7 +4246,7 @@
       let ptWordIdx   = 0;
       let ptColorIdx  = 0;
       let ptFrame     = 0;
-      const PT_STEP   = 10;
+      const PT_STEP   = window.innerWidth <= 768 ? 18 : 10;
 
       class PtParticle {
         constructor() {
@@ -4438,8 +4438,15 @@
 
       window.addEventListener('resize', ptResize);
 
-      // Garante fonte carregada antes de amostrar pixels
-      document.fonts.load(`900 80px 'Barlow Condensed'`).finally(() => {
+      // Garante que TODAS as fontes estejam prontas antes de amostrar pixels
+      document.fonts.ready.then(() => {
+        // Render "mudo": força o browser a ativar Barlow Condensed no contexto canvas
+        const warmup = document.createElement('canvas');
+        warmup.width = 4; warmup.height = 4;
+        const wCtx = warmup.getContext('2d');
+        wCtx.font = `900 120px 'Barlow Condensed', sans-serif`;
+        wCtx.fillText('H', 0, 4);
+        // Agora os pixels são amostrados com a fonte correta
         ptResize();
         requestAnimationFrame(ptAnimate);
       });
