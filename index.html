@@ -1159,9 +1159,15 @@
     }
 
     @media (max-width: 768px) {
-      .haze-modal-inner { max-height: 90vh; }
-      .haze-chat-wrap { }
+      .haze-modal-inner {
+        width: 100%;
+        max-width: 100%;
+        height: 100svh;
+        max-height: 100svh;
+        border-radius: 0;
+      }
       .haze-modal-close { top: 14px; right: 14px; }
+      .haze-chat-input { font-size: 16px; } /* evita zoom automático do iOS */
     }
 
     /* ========================
@@ -4262,8 +4268,11 @@
 
         kill() {
           if (!this.isKilled) {
-            const angle = Math.random() * Math.PI * 2;
-            const rad   = (ptCanvas.width + ptCanvas.height) * 0.65;
+            const angle  = Math.random() * Math.PI * 2;
+            const isMob  = window.innerWidth < 769;
+            const rad    = isMob
+              ? Math.min(ptCanvas.width, ptCanvas.height) * 0.7
+              : (ptCanvas.width + ptCanvas.height) * 0.65;
             this.target.x = ptCanvas.width  / 2 + Math.cos(angle) * rad;
             this.target.y = ptCanvas.height / 2 + Math.sin(angle) * rad;
             const cw = this.colorWeight;
@@ -4280,8 +4289,11 @@
       }
 
       function ptRandSpawn() {
-        const angle = Math.random() * Math.PI * 2;
-        const rad   = (ptCanvas.width + ptCanvas.height) * 0.65;
+        const angle  = Math.random() * Math.PI * 2;
+        const isMob  = window.innerWidth < 769;
+        const rad    = isMob
+          ? Math.min(ptCanvas.width, ptCanvas.height) * 0.7
+          : (ptCanvas.width + ptCanvas.height) * 0.65;
         return {
           x: ptCanvas.width  / 2 + Math.cos(angle) * rad,
           y: ptCanvas.height / 2 + Math.sin(angle) * rad,
@@ -4368,7 +4380,8 @@
       }
 
       function ptAnimate() {
-        ptCtx.fillStyle = 'rgba(10,10,10,0.18)';
+        const alpha = window.innerWidth < 769 ? 0.32 : 0.18;
+        ptCtx.fillStyle = `rgba(10,10,10,${alpha})`;
         ptCtx.fillRect(0, 0, ptCanvas.width, ptCanvas.height);
 
         for (let i = ptParticles.length - 1; i >= 0; i--) {
@@ -4636,6 +4649,14 @@
     document.getElementById('hazeChatInput').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') handleChatSend();
     });
+
+    // Mobile: quando teclado virtual abre, rola mensagens para o fim
+    if ('visualViewport' in window) {
+      window.visualViewport.addEventListener('resize', function() {
+        const messages = document.getElementById('hazeChatMessages');
+        if (messages) messages.scrollTop = messages.scrollHeight;
+      });
+    }
 
     // ========================
     // VALUES STAGGER ANIMATION
@@ -4918,5 +4939,3 @@
 
 </body>
 </html>
-
-
