@@ -70,7 +70,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
-  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
+  <!-- Spline carregado via lazy load no JS -->
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -1159,6 +1159,8 @@
     }
 
     @media (max-width: 768px) {
+      /* Modal tela cheia */
+      .haze-modal { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
       .haze-modal-inner {
         width: 100%;
         max-width: 100%;
@@ -1167,7 +1169,33 @@
         border-radius: 0;
       }
       .haze-modal-close { top: 14px; right: 14px; }
-      .haze-chat-input { font-size: 16px; } /* evita zoom automático do iOS */
+
+      /* Swipe indicator */
+      .haze-modal-inner::before {
+        content: '';
+        display: block;
+        width: 36px;
+        height: 4px;
+        background: rgba(255,255,255,0.18);
+        border-radius: 2px;
+        margin: 10px auto 0;
+        flex-shrink: 0;
+      }
+
+      /* Input sem zoom no iOS */
+      .haze-chat-input { font-size: 16px; }
+
+      /* Botão enviar — área de toque maior */
+      .haze-chat-send {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+      }
+
+      /* Safe area iOS (notch/home bar) */
+      .haze-chat-footer {
+        padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+      }
     }
 
     /* ========================
@@ -3525,7 +3553,7 @@
   <!-- SPLINE / ROBOT -->
   <section id="spline-section">
     <div class="spline-overlay"></div>
-    <spline-viewer url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"></spline-viewer>
+    <spline-viewer id="splineViewer" data-url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"></spline-viewer>
     <div class="spline-text">
       <p class="spline-text-label">Estratégia + Estética</p>
       <h2 class="spline-text-headline">Construímos marcas que<br>as pessoas reconhecem e desejam</h2>
@@ -4218,7 +4246,7 @@
       let ptWordIdx   = 0;
       let ptColorIdx  = 0;
       let ptFrame     = 0;
-      const PT_STEP   = 10; // amostragem de pixels (maior = menos partículas)
+      const PT_STEP   = 10;
 
       class PtParticle {
         constructor() {
@@ -4380,8 +4408,9 @@
       }
 
       function ptAnimate() {
-        const alpha = window.innerWidth < 769 ? 0.32 : 0.18;
-        ptCtx.fillStyle = `rgba(10,10,10,${alpha})`;
+        requestAnimationFrame(ptAnimate);
+        if (!window._ptVisible) return;
+        ptCtx.fillStyle = 'rgba(10,10,10,0.18)';
         ptCtx.fillRect(0, 0, ptCanvas.width, ptCanvas.height);
 
         for (let i = ptParticles.length - 1; i >= 0; i--) {
@@ -4399,8 +4428,6 @@
 
         ptFrame++;
         if (ptFrame % 320 === 0) ptNextWord(); // troca a cada ~5s
-
-        requestAnimationFrame(ptAnimate);
       }
 
       function ptResize() {
@@ -4410,7 +4437,12 @@
       }
 
       window.addEventListener('resize', ptResize);
-      document.fonts.ready.then(() => { ptResize(); ptAnimate(); });
+
+      // Garante fonte carregada antes de amostrar pixels
+      document.fonts.load(`900 80px 'Barlow Condensed'`).finally(() => {
+        ptResize();
+        requestAnimationFrame(ptAnimate);
+      });
     })();
 
     // ========================
@@ -4633,7 +4665,13 @@
     function openHazeChat() {
       const modal = document.getElementById('hazeModal');
       modal.style.display = 'flex';
-      setTimeout(() => modal.classList.add('open'), 10);
+      setTimeout(() => {
+        modal.classList.add('open');
+        // Auto-foco após animação — só desktop (mobile foca manualmente pra evitar scroll indesejado)
+        if (window.innerWidth > 768) {
+          setTimeout(() => document.getElementById('hazeChatInput').focus(), 460);
+        }
+      }, 10);
       messages.innerHTML = '';
       inputWrap.style.display = 'none';
       setGesture(null);
@@ -4646,17 +4684,47 @@
       setTimeout(() => { modal.style.display = 'none'; }, 500);
     }
 
+    // Enter envia
     document.getElementById('hazeChatInput').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') handleChatSend();
     });
 
-    // Mobile: quando teclado virtual abre, rola mensagens para o fim
+    // iOS: input sobe junto com o teclado virtual via visualViewport
     if ('visualViewport' in window) {
       window.visualViewport.addEventListener('resize', function() {
-        const messages = document.getElementById('hazeChatMessages');
-        if (messages) messages.scrollTop = messages.scrollHeight;
-      });
+        const modal = document.getElementById('hazeModal');
+        if (!modal || !modal.classList.contains('open')) return;
+        const footer = document.querySelector('.haze-chat-footer');
+        const offsetBottom = window.innerHeight - window.visualViewport.height - window.visualViewport.offsetTop;
+        if (footer) footer.style.paddingBottom = Math.max(18, offsetBottom) + 'px';
+        messages.scrollTop = messages.scrollHeight;
+      }, { passive: true });
     }
+
+    // Swipe para baixo fecha o modal no mobile
+    (function initSwipeClose() {
+      const inner = document.querySelector('.haze-modal-inner');
+      if (!inner) return;
+      let startY = 0, isDragging = false;
+      inner.addEventListener('touchstart', e => {
+        startY = e.touches[0].clientY;
+        isDragging = true;
+      }, { passive: true });
+      inner.addEventListener('touchmove', e => {
+        if (!isDragging) return;
+        const dy = e.touches[0].clientY - startY;
+        if (dy > 0) inner.style.transform = `translateY(${Math.min(dy * 0.4, 80)}px)`;
+      }, { passive: true });
+      inner.addEventListener('touchend', e => {
+        if (!isDragging) return;
+        isDragging = false;
+        const dy = e.changedTouches[0].clientY - startY;
+        inner.style.transform = '';
+        inner.style.transition = 'transform 0.3s cubic-bezier(0.22,1,0.36,1)';
+        setTimeout(() => inner.style.transition = '', 300);
+        if (dy > 90) closeHazeChat();
+      }, { passive: true });
+    })();
 
     // ========================
     // VALUES STAGGER ANIMATION
@@ -4933,6 +5001,49 @@
         });
       }, { threshold: 0.5 });
       obs.observe(quote);
+    })();
+
+    // ========================
+    // LAZY LOAD — SPLINE VIEWER
+    // Só carrega o script 3D quando o usuário está prestes a ver a seção
+    // ========================
+    (function initSplineLazy() {
+      const section = document.getElementById('spline-section');
+      const viewer  = document.getElementById('splineViewer');
+      if (!section || !viewer) return;
+
+      let loaded = false;
+      const obs = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !loaded) {
+          loaded = true;
+          obs.disconnect();
+          const script  = document.createElement('script');
+          script.type   = 'module';
+          script.src    = 'https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js';
+          script.onload = () => {
+            viewer.setAttribute('url', viewer.dataset.url);
+            // Dispara o posicionamento do balão após o viewer carregar
+            viewer.addEventListener('load', () => {
+              if (typeof positionHazeInvite === 'function') positionHazeInvite();
+            }, { once: true });
+          };
+          document.head.appendChild(script);
+        }
+      }, { rootMargin: '300px' }); // começa a carregar 300px antes de entrar na tela
+      obs.observe(section);
+    })();
+
+    // ========================
+    // PAUSA PARTICLE QUANDO FORA DO VIEWPORT
+    // Economiza CPU/GPU em todo o resto do scroll
+    // ========================
+    (function initParticlePause() {
+      const section = document.getElementById('pong-section');
+      if (!section) return;
+      const obs = new IntersectionObserver((entries) => {
+        window._ptVisible = entries[0].isIntersecting;
+      }, { threshold: 0.05 });
+      obs.observe(section);
     })();
 
   </script>
