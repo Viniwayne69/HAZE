@@ -1588,23 +1588,15 @@
     }
 
     /* ========================
-       LANDING PAGES SECTION
+       PORTFOLIO CAROUSEL 3D
     ======================== */
     #portfolio {
-      padding: 120px 40px;
+      padding: 120px 40px 100px;
       background: var(--black);
       border-top: 1px solid var(--cinza);
     }
-
-    .lp-inner {
-      max-width: 1280px;
-      margin: 0 auto;
-    }
-
-    .lp-header {
-      margin-bottom: 72px;
-    }
-
+    .lp-inner { max-width: 1280px; margin: 0 auto; }
+    .lp-header { margin-bottom: 72px; }
     .lp-title {
       font-family: var(--font-display);
       font-size: clamp(42px, 6vw, 88px);
@@ -1615,9 +1607,7 @@
       text-transform: uppercase;
       margin-bottom: 24px;
     }
-
     .lp-title span { color: var(--ciano); }
-
     .lp-subtitle {
       font-family: var(--font-body);
       font-size: clamp(14px, 1.4vw, 17px);
@@ -1626,109 +1616,90 @@
       line-height: 1.6;
     }
 
-    /* Grid */
-    .lp-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 3px;
-    }
-
-    .lp-card {
+    /* Carousel */
+    .lp-carousel-wrap {
       position: relative;
-      overflow: hidden;
-      aspect-ratio: 16 / 9;
-      background: var(--grafite);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22,1,0.36,1);
-    }
-    .lp-card.lp-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .lp-card img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-                  filter 0.4s ease;
-      filter: brightness(0.92);
-    }
-
-    .lp-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border: 2px solid var(--ciano);
-      opacity: 0;
-      transition: opacity 0.35s ease;
-      pointer-events: none;
-    }
-
-    .lp-card:hover img {
-      transform: scale(1.04);
-      filter: brightness(1);
-    }
-
-    .lp-card:hover::after { opacity: 1; }
-
-    /* CTA */
-    .lp-footer {
-      margin-top: 64px;
+      height: 600px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 24px;
+      justify-content: center;
+      perspective: 1200px;
+      overflow: hidden;
+      transform-origin: center center;
+      will-change: transform;
     }
-
-    .lp-footer-text {
-      font-family: var(--font-body);
-      font-size: 13px;
-      color: rgba(255,255,255,0.35);
-      letter-spacing: 0.04em;
-    }
-
-    .pgallery-btn {
-      display: inline-flex;
+    .lp-carousel-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
       align-items: center;
-      gap: 10px;
-      background: var(--ciano);
-      color: #0A0A0A;
-      padding: 14px 32px;
-      border-radius: 2px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: background 0.25s, color 0.25s, outline 0.25s;
+      justify-content: center;
     }
-
-    .pgallery-btn:hover {
-      background: transparent;
-      color: var(--ciano);
-      outline: 1px solid var(--ciano);
+    .lp-slide {
+      position: absolute;
+      width: clamp(210px, 18vw, 260px);
+      aspect-ratio: 9 / 18;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1.5px solid rgba(255,255,255,0.08);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.7);
+      transition: transform .55s cubic-bezier(.25,.46,.45,.94), opacity .55s ease, filter .55s ease;
+      will-change: transform, opacity;
     }
+    .lp-slide img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      pointer-events: none; user-select: none;
+    }
+    .lp-nav-btn {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(8,8,8,0.65);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 20;
+      transition: background .22s, border-color .22s, transform .22s;
+    }
+    .lp-nav-btn:hover { background: rgba(24,183,196,0.18); border-color: var(--ciano); transform: translateY(-50%) scale(1.08); }
+    .lp-nav-prev { left: 12px; }
+    .lp-nav-next { right: 12px; }
+    .lp-dots { display: flex; justify-content: center; gap: 8px; margin-top: 36px; }
+    .lp-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.18);
+      border: none; cursor: pointer; padding: 0;
+      transition: background .3s, transform .3s;
+    }
+    .lp-dot.lp-dot-active { background: var(--ciano); transform: scale(1.5); }
 
-    .pgallery-btn svg { transition: transform 0.2s; }
+    /* CTA */
+    .lp-footer { margin-top: 64px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+    .lp-footer-text { font-family: var(--font-body); font-size: 13px; color: rgba(255,255,255,0.35); letter-spacing: 0.04em; }
+    .pgallery-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--ciano); color: #0A0A0A;
+      padding: 14px 32px; border-radius: 2px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; text-decoration: none;
+      transition: background .25s, color .25s, outline .25s;
+    }
+    .pgallery-btn:hover { background: transparent; color: var(--ciano); outline: 1px solid var(--ciano); }
+    .pgallery-btn svg { transition: transform .2s; }
     .pgallery-btn:hover svg { transform: translateX(4px); }
 
-    @media (max-width: 900px) {
-      .lp-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
     @media (max-width: 768px) {
-      #portfolio { padding: 72px 20px; }
+      #portfolio { padding: 72px 20px 80px; }
       .lp-header { margin-bottom: 40px; }
-      .lp-grid { grid-template-columns: repeat(2, 1fr); gap: 2px; }
+      .lp-carousel-wrap { height: 460px; }
+      .lp-slide { width: clamp(150px, 38vw, 200px); }
       .lp-footer { flex-direction: column; align-items: flex-start; }
-    }
-
-    @media (max-width: 480px) {
-      .lp-grid { grid-template-columns: 1fr; }
+      .lp-nav-prev { left: 4px; } .lp-nav-next { right: 4px; }
     }
 
     /* ========================
@@ -3751,7 +3722,7 @@
     </div>
     <p class="hero-eyebrow">Branding &amp; Identidade Visual, Brasil</p>
     <h1 class="hero-title">HAZE</h1>
-    <p class="hero-tagline">Sua marca precisa ser lembrada, a gente cuida disso.</p>
+    <p class="hero-tagline">Conectando sua marca aos seus clientes</p>
 
     <div class="hero-cta-wrap">
       <a class="hero-cta primary" href="#portfolio">Ver nossos projetos</a>
@@ -4120,7 +4091,7 @@
     </div>
   </section>
 
-  <!-- LANDING PAGES -->
+  <!-- PORTFOLIO CAROUSEL -->
   <section id="portfolio">
     <div class="lp-inner">
 
@@ -4129,7 +4100,17 @@
         <p class="lp-subtitle">Do conceito visual à conversão real, cada página construída com estratégia, estética e foco em resultado.</p>
       </div>
 
-      <div class="lp-grid" id="lpGrid"></div>
+      <div class="lp-carousel-wrap">
+        <div class="lp-carousel-track" id="lpCarouselTrack"></div>
+        <button class="lp-nav-btn lp-nav-prev" id="lpPrev" aria-label="Anterior">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="lp-nav-btn lp-nav-next" id="lpNext" aria-label="Próximo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+
+      <div class="lp-dots" id="lpDots"></div>
 
       <div class="lp-footer reveal">
         <p class="lp-footer-text">Quer uma página assim para o seu negócio?</p>
@@ -5291,45 +5272,125 @@
     })();
 
     // ========================
-    // LANDING PAGES GRID
+    // PORTFOLIO CAROUSEL 3D
     // ========================
-    (function initLPGrid() {
-      const BASE = 'https://raw.githubusercontent.com/Viniwayne69/HAZE/main/portfolio/';
-      const images = [
-        'landi1.png','landi2.png','landi3.png','landi4.png','landi5.png',
-        'landi6.png','landi7.png','landi8.png','landi9.png','landi10.png',
-        'landi11.png','landi12.png','landi13.png','landi14.png',
-      ];
+    (function initPortfolioCarousel() {
+      const BASE  = 'https://raw.githubusercontent.com/Viniwayne69/HAZE/main/';
+      const names = Array.from({ length: 14 }, (_, i) => `n${i + 1}.png`);
+      const track   = document.getElementById('lpCarouselTrack');
+      const dotsEl  = document.getElementById('lpDots');
+      const prevBtn = document.getElementById('lpPrev');
+      const nextBtn = document.getElementById('lpNext');
+      if (!track) return;
 
-      const grid = document.getElementById('lpGrid');
-      if (!grid) return;
+      const total = names.length;
+      let current = Math.floor(total / 2);
+      let timer   = null;
 
-      images.forEach((name, i) => {
-        const card = document.createElement('div');
-        card.className = 'lp-card';
-
+      const slides = names.map((name, i) => {
+        const slide = document.createElement('div');
+        slide.className = 'lp-slide';
         const img = document.createElement('img');
-        img.src      = BASE + name;
-        img.alt      = 'Landing page ' + (i + 1);
-        img.loading  = 'lazy';
-        img.decoding = 'async';
-
-        card.appendChild(img);
-        grid.appendChild(card);
+        img.src = BASE + name; img.alt = 'Projeto HAZE ' + (i + 1);
+        img.loading = 'lazy'; img.decoding = 'async';
+        slide.appendChild(img);
+        track.appendChild(slide);
+        slide.addEventListener('click', () => { stopAuto(); goTo(i); startAuto(); });
+        return slide;
       });
 
-      // Anima os cards com stagger após renderizar
-      const cards = grid.querySelectorAll('.lp-card');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const idx = Array.from(cards).indexOf(entry.target);
-            setTimeout(() => entry.target.classList.add('lp-visible'), idx * 40);
-            observer.unobserve(entry.target);
-          }
+      const dots = names.map((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'lp-dot';
+        dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+        dot.addEventListener('click', () => { stopAuto(); goTo(i); startAuto(); });
+        dotsEl.appendChild(dot);
+        return dot;
+      });
+
+      function render() {
+        const half = Math.floor(total / 2);
+        slides.forEach((slide, i) => {
+          let off = i - current;
+          if (off >  half) off -= total;
+          if (off < -half) off += total;
+          const isCenter = off === 0, isAdj = Math.abs(off) === 1, vis = Math.abs(off) <= 2;
+          slide.style.transform  = `translateX(${off * 50}%) scale(${isCenter ? 1 : isAdj ? 0.8 : 0.65}) rotateY(${off * -14}deg)`;
+          slide.style.zIndex     = isCenter ? 10 : isAdj ? 5 : 1;
+          slide.style.opacity    = isCenter ? 1 : isAdj ? 0.42 : 0;
+          slide.style.filter     = isCenter ? 'blur(0px)' : 'blur(3px)';
+          slide.style.visibility = vis ? 'visible' : 'hidden';
+          slide.style.cursor     = isCenter ? 'default' : 'pointer';
         });
-      }, { threshold: 0.08 });
-      cards.forEach(c => observer.observe(c));
+        dots.forEach((d, i) => d.classList.toggle('lp-dot-active', i === current));
+      }
+
+      function goTo(idx) { current = ((idx % total) + total) % total; render(); }
+      function next()    { goTo(current + 1); }
+      function prev()    { goTo(current - 1); }
+      function startAuto() { timer = setInterval(next, 4000); }
+      function stopAuto()  { clearInterval(timer); timer = null; }
+
+      prevBtn.addEventListener('click', () => { stopAuto(); prev(); startAuto(); });
+      nextBtn.addEventListener('click', () => { stopAuto(); next(); startAuto(); });
+
+      let touchX = 0;
+      track.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend',   e => {
+        const dx = e.changedTouches[0].clientX - touchX;
+        if (Math.abs(dx) > 40) { stopAuto(); dx < 0 ? next() : prev(); startAuto(); }
+      }, { passive: true });
+
+      const section = document.getElementById('portfolio');
+      section.addEventListener('mouseenter', stopAuto);
+      section.addEventListener('mouseleave', startAuto);
+
+      render();
+      startAuto();
+    })();
+
+    // ========================
+    // CAROUSEL SCROLL ZOOM — só desktop
+    // ========================
+    (function initCarouselScrollZoom() {
+      if (window.innerWidth < 768) return;
+
+      const wrap = document.querySelector('.lp-carousel-wrap');
+      if (!wrap) return;
+
+      const MIN_SCALE = 1.0;
+      const MAX_SCALE = 1.4;
+
+      let raf = null;
+
+      function update() {
+        const rect = wrap.getBoundingClientRect();
+        const vh   = window.innerHeight;
+
+        // Centro do carousel relativo ao centro da tela
+        const elCenter  = rect.top + rect.height / 2;
+        const vpCenter  = vh / 2;
+        const distance  = Math.abs(elCenter - vpCenter);
+
+        // Normaliza: 0 = distante, 1 = centrado
+        const maxDist = vh * 0.85;
+        const progress = Math.max(0, Math.min(1, 1 - distance / maxDist));
+
+        // Ease suave (easeInOutQuad)
+        const eased = progress < 0.5
+          ? 2 * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+        const scale = MIN_SCALE + eased * (MAX_SCALE - MIN_SCALE);
+        wrap.style.transform = `scale(${scale.toFixed(4)})`;
+        raf = null;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!raf) raf = requestAnimationFrame(update);
+      }, { passive: true });
+
+      update();
     })();
 
     // ========================
@@ -5497,71 +5558,30 @@
       const intro = document.getElementById('hazeIntro');
       if (!intro) return;
 
-      function goPhase(id) {
-        document.querySelectorAll('.intro-phase').forEach(p => p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-      }
-
       function dismiss() {
         intro.classList.add('dismiss');
         setTimeout(() => intro.remove(), 1300);
       }
 
-      // Phase 2 — quick cuts (5s–12s)
-      const cuts = document.querySelectorAll('.intro-cut-word');
-      let cutI = 0;
-      function runCut() {
-        if (cutI > 0) cuts[cutI - 1].classList.remove('flash');
-        if (cutI < cuts.length) {
-          cuts[cutI].classList.add('flash');
-          cutI++;
-          setTimeout(runCut, 680);
-        }
-      }
+      // Só fase 3 — manifesto entra direto
+      document.querySelectorAll('.intro-phase').forEach(p => p.classList.remove('active'));
+      const p3 = document.getElementById('iP3');
+      if (p3) p3.classList.add('active');
 
-      // Phase 3 — manifesto (12s–23s)
-      function runManifesto() {
-        ['iml1','iml2','iml3'].forEach((id, i) => {
-          setTimeout(() => {
-            const el = document.getElementById(id);
-            if (el) el.classList.add('show');
-          }, i * 900);
-        });
-      }
+      ['iml1','iml2','iml3'].forEach((id, i) => {
+        setTimeout(() => {
+          const el = document.getElementById(id);
+          if (el) el.classList.add('show');
+        }, i * 700);
+      });
 
-      // Timeline
-      setTimeout(() => { goPhase('iP2'); runCut(); },       1800);
-      setTimeout(() => { goPhase('iP3'); runManifesto(); }, 6800);
-      setTimeout(dismiss,                                    11000);
+      setTimeout(dismiss, 1400 + 1800);
 
       document.getElementById('introSkip')
         .addEventListener('click', dismiss);
     })();
 
-    // ========================
-    // ETHERAL SHADOW ANIMATION
-    // ========================
-    (function initEtherealShadow() {
-      const hueEl = document.getElementById('etherHue');
-      if (!hueEl) return;
-
-      // Skip on reduced-motion preference
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-      let hue = 0;
-      let lastTime = performance.now();
-      const cycleDuration = 5840; // ~speed:90 do componente original (animationDuration/25 ≈ 5.84s)
-
-      function tick(now) {
-        const delta = now - lastTime;
-        lastTime = now;
-        hue = (hue + 360 * delta / cycleDuration) % 360;
-        hueEl.setAttribute('values', String(hue.toFixed(2)));
-        requestAnimationFrame(tick);
-      }
-
-      requestAnimationFrame(tick);
-    })();
+    // Etheral Shadow — estático (zero rAF, browser cacheia o filtro SVG uma vez)
 
   </script>
 
