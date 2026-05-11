@@ -2406,11 +2406,15 @@
       #heroEtherealBg { opacity: 0.6; }
       #etherMask { mask-size: 200% auto; -webkit-mask-size: 200% auto; mask-position: center 40%; -webkit-mask-position: center 40%; }
 
-      /* Parceiros */
-      #parceiros { padding: 12px 16px; gap: 12px; }
-      .parceiros-logos { gap: 14px; }
-      .parceiro-svg { height: 22px; }
-      .parceiros-label { font-size: 8px; letter-spacing: 0.18em; }
+      /* Parceiros — 2 linhas no mobile */
+      #parceiros { flex-wrap: wrap; justify-content: center; padding: 12px 0 16px; gap: 0; row-gap: 10px; }
+      .parceiros-dot { order: 1; margin-right: 8px; }
+      .parceiros-label { order: 2; font-size: 9px; letter-spacing: 0.22em; }
+      .parceiros-marquee-wrap { width: 100%; order: 3; }
+      .parceiros-logos { gap: 28px; }
+      .parceiro-svg { height: 34px; }
+      .parceiro-name { font-size: 13px; }
+      .parceiro-type { font-size: 9px; }
 
       /* Spline */
       #spline-section { height: 65svh; }
