@@ -313,8 +313,8 @@
     .hero-title {
       font-family: var(--font-display);
       font-size: clamp(96px, 20vw, 300px);
-      font-weight: 600;
-      letter-spacing: 0.14em;
+      font-weight: 800;
+      letter-spacing: -0.01em;
       line-height: 0.88;
       color: white;
       text-shadow: none;
@@ -342,6 +342,8 @@
       margin-top: 52px;
       opacity: 0;
       animation: fadeUp 1s ease 1.4s forwards;
+      position: relative;
+      z-index: 2;
     }
 
     .hero-cta {
@@ -1747,12 +1749,66 @@
     }
 
     /* ========================
+       PARTICLE TEXT — MOBILE FALLBACK
+    ======================== */
+    #pt-mobile {
+      display: none;
+      position: absolute;
+      inset: 0;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pt-mob-word {
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: clamp(52px, 15vw, 110px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: ptMobCycle 12s infinite;
+    }
+
+    .pt-mob-word:nth-child(1) { color: #18B7C4; animation-delay:  0s; }
+    .pt-mob-word:nth-child(2) { color: #C2A24A; animation-delay:  2s; }
+    .pt-mob-word:nth-child(3) { color: #5C4DFF; animation-delay:  4s; }
+    .pt-mob-word:nth-child(4) { color: #ffffff; animation-delay:  6s; }
+    .pt-mob-word:nth-child(5) { color: #18B7C4; animation-delay:  8s; }
+    .pt-mob-word:nth-child(6) { color: #C2A24A; animation-delay: 10s; }
+
+    @keyframes ptMobCycle {
+      0%   { opacity: 0; transform: translateY(24px); }
+      8%   { opacity: 1; transform: translateY(0);    }
+      25%  { opacity: 1; transform: translateY(0);    }
+      33%  { opacity: 0; transform: translateY(-24px);}
+      100% { opacity: 0; transform: translateY(-24px);}
+    }
+
+    @media (max-width: 768px) {
+      #pong-canvas  { display: none; }
+      #pt-mobile    { display: flex; }
+    }
+
+    /* ========================
        MANIFESTO
     ======================== */
     #manifesto {
       padding: 180px 56px;
       border-top: 1px solid var(--gray-dim);
       text-align: center;
+      background: linear-gradient(160deg, #0d1a1b 0%, #0A0A0A 40%, #0A0A0A 60%, #0d1a1b 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #manifesto::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(24,183,196,0.04) 0%, transparent 70%);
+      pointer-events: none;
     }
 
     .manifesto-inner {
@@ -2178,12 +2234,55 @@
     }
 
     /* ========================
+       ETHERAL SHADOW — hero bg
+    ======================== */
+    #heroEtherealBg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    #etherDisplace {
+      position: absolute;
+      inset: -100px; /* expanded to prevent displacement edge clipping */
+      filter: url(#etherFilter) blur(4px);
+    }
+    #etherMask {
+      width: 100%;
+      height: 100%;
+      /* Cinza idêntico ao componente: rgba(128,128,128,1) */
+      background-color: rgba(128, 128, 128, 1);
+      /* Máscara real do componente original — bordas suaves e orgânicas */
+      mask-image: url('https://framerusercontent.com/images/ceBGguIpUU8luwByxuQz79t7To.png');
+      -webkit-mask-image: url('https://framerusercontent.com/images/ceBGguIpUU8luwByxuQz79t7To.png');
+      mask-size: cover;
+      -webkit-mask-size: cover;
+      mask-repeat: no-repeat;
+      -webkit-mask-repeat: no-repeat;
+      mask-position: center;
+      -webkit-mask-position: center;
+    }
+    #etherNoise {
+      position: absolute;
+      inset: 0;
+      /* Textura de noise do componente original */
+      background-image: url("https://framerusercontent.com/images/g0QcWrxr87K0ufOxIUFBakwYA8.png");
+      background-size: 240px;
+      background-repeat: repeat;
+      opacity: 0.5;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #etherDisplace { filter: blur(4px); }
+    }
+
+    /* ========================
        HERO BACKGROUND — ORBS + GRID
     ======================== */
     .hero-bg {
       position: absolute;
       inset: 0;
-      z-index: 0;
+      z-index: 1;
       overflow: hidden;
       pointer-events: none;
     }
@@ -2398,17 +2497,7 @@
       #numeros { grid-template-columns: repeat(2, 1fr); }
       .numero-item { padding: 36px 20px; }
 
-      /* Footer */
-      footer {
-        grid-template-columns: 1fr;
-        padding: 48px 20px 32px;
-        gap: 36px;
-      }
-      .footer-right { align-items: flex-start; }
-      .footer-bottom { flex-direction: column; gap: 8px; align-items: flex-start; }
-      .footer-center { align-items: flex-start; }
-      .footer-nav { align-items: flex-start; }
-      .footer-social-link, .footer-nav a { cursor: pointer; }
+      /* Footer — handled in dedicated footer block below */
     }
 
     /* Touch device: remove sticky hover states */
@@ -2734,7 +2823,6 @@
     .footer-made,
     .footer-tagline,
     .footer-nav a,
-    .footer-social-link,
     .footer-brand {
       color: rgba(255,255,255,0.92) !important;
     }
@@ -2917,111 +3005,182 @@
        FOOTER REDESIGN
     ======================== */
     footer {
-      padding: 64px 56px 40px;
-      border-top: 1px solid var(--gray-dim);
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: start;
-      gap: 48px;
-    }
-    .footer-left {
+      padding: 88px 64px 52px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 0;
+      background: #060606;
+      border-top: none;
+    }
+
+    /* ─── CTA ROW ─── */
+    .footer-cta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      padding-bottom: 72px;
+    }
+    .footer-cta-eyebrow {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #18B7C4;
+      margin-bottom: 20px;
+    }
+    .footer-cta-headline {
+      font-size: clamp(38px, 5.5vw, 80px);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.0;
+      margin: 0;
+      color: white;
+    }
+    .footer-cta-headline em {
+      font-style: normal;
+      color: #18B7C4;
+    }
+    .footer-cta-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-shrink: 0;
+      min-width: 200px;
+    }
+    .footer-btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 30px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      border: 1px solid rgba(255,255,255,0.2);
+      text-decoration: none;
+      transition: border-color 0.3s, color 0.3s;
+      cursor: none;
+    }
+    .footer-btn-ghost:hover {
+      border-color: rgba(255,255,255,0.6);
+      color: white;
+    }
+    .footer-btn-solid {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 30px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #060606;
+      background: #18B7C4;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.25s cubic-bezier(0.22,1,0.36,1);
+      cursor: none;
+    }
+    .footer-btn-solid:hover {
+      background: #22d4e2;
+      transform: translateY(-3px);
+    }
+
+    /* ─── DIVIDER ─── */
+    .footer-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.07) 15%, rgba(255,255,255,0.07) 85%, transparent);
+      margin-bottom: 56px;
+    }
+
+    /* ─── FOOTER GRID ─── */
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.8fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 56px;
+    }
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
     .footer-brand {
       font-size: 13px;
       font-weight: 700;
-      letter-spacing: 0.35em;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
       color: white;
     }
     .footer-tagline {
       font-size: 12px;
       font-weight: 300;
-      color: rgba(255,255,255,0.45);
-      line-height: 1.6;
-      max-width: 220px;
+      color: rgba(255,255,255,0.38);
+      line-height: 1.75;
+      max-width: 230px;
     }
-    .footer-center {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 24px;
+    .footer-col-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
     }
     .footer-nav {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 14px;
+      gap: 13px;
       list-style: none;
+      padding: 0;
+      margin: 0;
     }
     .footer-nav a {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.75);
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
       text-decoration: none;
       transition: color 0.3s;
       cursor: none;
     }
     .footer-nav a:hover { color: white; }
-    .footer-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 16px;
-    }
-    .footer-socials {
-      display: flex;
-      gap: 20px;
-    }
-    .footer-social-link {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.78);
-      text-decoration: none;
-      cursor: none;
-      padding-bottom: 2px;
-      border-bottom: 1px solid transparent;
-      transition: color 0.3s, border-color 0.3s;
-    }
-    .footer-social-link:hover {
-      color: white;
-      border-color: rgba(255,255,255,0.5);
-    }
+
+    /* ─── BOTTOM BAR ─── */
     .footer-bottom {
-      grid-column: 1 / -1;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-top: 32px;
-      border-top: 1px solid var(--gray-dim);
-      margin-top: 8px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.05);
     }
     .footer-copy {
-      font-size: 10px;
-      color: rgba(255,255,255,0.35);
-      letter-spacing: 0.1em;
-    }
-    .footer-made {
       font-size: 10px;
       color: rgba(255,255,255,0.28);
       letter-spacing: 0.08em;
     }
+    .footer-made {
+      font-size: 10px;
+      color: rgba(255,255,255,0.18);
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── FOOTER RESPONSIVE ─── */
+    @media (max-width: 960px) {
+      footer { padding: 72px 40px 44px; }
+      .footer-cta-row { flex-direction: column; align-items: flex-start; gap: 40px; }
+      .footer-cta-actions { flex-direction: row; min-width: auto; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
     @media (max-width: 768px) {
-      footer {
-        grid-template-columns: 1fr;
-        padding: 48px 20px 32px;
-        gap: 36px;
-      }
-      .footer-right { align-items: flex-start; }
-      .footer-bottom { flex-direction: column; gap: 8px; align-items: flex-start; }
-      .footer-nav { align-items: flex-start; }
-      .footer-social-link { cursor: pointer; }
+      footer { padding: 60px 24px 40px; }
+      .footer-cta-row { padding-bottom: 52px; }
+      .footer-cta-headline { font-size: clamp(34px, 9vw, 54px); }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-cta-actions { flex-direction: column; width: 100%; }
+      .footer-btn-ghost, .footer-btn-solid { cursor: pointer; }
       .footer-nav a { cursor: pointer; }
+      .footer-bottom { flex-direction: column; gap: 8px; align-items: flex-start; }
     }
 
     /* ═══════════════════════════════════════
@@ -3098,9 +3257,9 @@
     #numeros { background: var(--grafite); border-top-color: var(--cinza) !important; }
     .numero-item { border-right-color: var(--cinza) !important; }
 
-    /* Footer — grafite escuro */
-    footer { background: var(--grafite); border-top-color: var(--cinza) !important; }
-    .footer-bottom { border-top-color: var(--cinza) !important; }
+    /* Footer — mantém tom próprio escuro */
+    footer { background: #060606; }
+    .footer-bottom { border-top-color: rgba(255,255,255,0.05) !important; }
 
     /* Whatsapp float — ciano */
     #whatsapp-float {
@@ -3208,6 +3367,27 @@
     .svc-card:hover::after {
       border-color: var(--ciano);
     }
+    .svc-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 20px 16px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 2;
+    }
+    .svc-overlay span {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: white;
+      line-height: 1;
+    }
+    .svc-card:hover .svc-overlay { opacity: 1; }
 
     /* ========================
        MANIFESTO HIGHLIGHT
@@ -3241,6 +3421,158 @@
     .hero-cta.ghost {
       transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease,
                   transform 0.25s ease;
+    }
+
+    /* ========================
+       HAZE INTRO REEL 30s
+    ======================== */
+    #hazeIntro {
+      position: absolute; inset: 0;
+      z-index: 10;
+      background: #0A0A0A;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      transition: opacity 1.2s ease;
+    }
+    #hazeIntro.dismiss { opacity: 0; pointer-events: none; }
+
+    #hazeIntro::before {
+      content: '';
+      position: absolute; inset: -50%;
+      width: 200%; height: 200%;
+      pointer-events: none;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 300px 300px;
+      animation: introGrain 0.35s steps(1) infinite;
+    }
+    @keyframes introGrain {
+      0%   { transform: translate(0,0); }
+      25%  { transform: translate(-2%,1%); }
+      50%  { transform: translate(1.5%,-1.5%); }
+      75%  { transform: translate(-1%,2%); }
+      100% { transform: translate(0,0); }
+    }
+
+    .intro-phase {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center; flex-direction: column;
+      opacity: 0; transition: opacity 0.5s ease; pointer-events: none;
+    }
+    .intro-phase.active { opacity: 1; pointer-events: auto; }
+
+    /* Phase 1 — Letras */
+    #iP1 { flex-direction: row; gap: 0.04em; }
+    .intro-letter {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(110px, 22vw, 280px);
+      font-weight: 900; color: white; line-height: 0.85;
+      opacity: 0;
+      animation: introLetterIn 0.55s cubic-bezier(0.22,1,0.36,1) forwards;
+      animation-delay: var(--d);
+    }
+    @keyframes introLetterIn {
+      from { opacity: 0; transform: translateY(28px) scale(0.94); filter: blur(14px); }
+      to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+
+    /* Phase 2 — Quick cuts */
+    .intro-cut-word {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(64px, 16vw, 210px);
+      font-weight: 900; letter-spacing: 0.04em; color: white;
+      position: absolute; opacity: 0;
+    }
+    .intro-cut-word.flash { animation: introCut 0.82s ease forwards; }
+    @keyframes introCut {
+      0%   { opacity: 0; transform: scale(1.07); }
+      12%  { opacity: 1; transform: scale(1); }
+      80%  { opacity: 1; }
+      100% { opacity: 0; transform: scale(0.96); }
+    }
+
+    /* Phase 3 — Manifesto */
+    #iP3 { gap: 4px; }
+    .intro-manifesto-line {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(68px, 14vw, 200px);
+      font-weight: 900; color: white; line-height: 0.88;
+      letter-spacing: 0.02em; text-align: center;
+      opacity: 0; transform: translateX(-44px);
+      transition: opacity 0.45s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.45s cubic-bezier(0.22,1,0.36,1);
+    }
+    .intro-manifesto-line.show { opacity: 1; transform: translateX(0); }
+    .intro-manifesto-line.cyan { color: #18B7C4; }
+
+    /* Phase 4 — Closing */
+    #iP4 { gap: 14px; }
+    .intro-close-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(52px, 10vw, 130px);
+      font-weight: 600; letter-spacing: 0.2em; color: white;
+      opacity: 0; animation: introFadeUp 0.85s ease forwards;
+    }
+    .intro-close-tag {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.45em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+      opacity: 0; animation: introFadeUp 0.85s ease 0.35s forwards;
+    }
+    .intro-close-line {
+      height: 1px; background: #18B7C4; width: 0;
+      animation: introLineExpand 0.9s ease 0.6s forwards;
+    }
+    @keyframes introFadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes introLineExpand { from { width:0; } to { width:90px; } }
+
+    /* Progresso + Skip */
+    #introProgress {
+      position: absolute; bottom: 0; left: 0; height: 2px;
+      background: #18B7C4; width: 0;
+      animation: introProgressFill 11s linear forwards;
+    }
+    @keyframes introProgressFill { from{width:0} to{width:100%} }
+    #introSkip {
+      position: absolute; bottom: 32px; right: 32px;
+      background: transparent; border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.4); font-family: var(--font-body);
+      font-size: 10px; font-weight: 600; letter-spacing: 0.25em;
+      text-transform: uppercase; padding: 10px 22px; cursor: pointer;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    #introSkip:hover { border-color: rgba(255,255,255,0.55); color: white; }
+
+    /* ========================
+       INTRO — MOBILE
+    ======================== */
+    @media (max-width: 768px) {
+      #iP1 { gap: 0.02em; }
+      .intro-letter {
+        font-size: clamp(72px, 20vw, 130px);
+      }
+      .intro-cut-word {
+        font-size: clamp(36px, 14vw, 80px);
+        letter-spacing: 0.02em;
+      }
+      .intro-manifesto-line {
+        font-size: clamp(44px, 13vw, 90px);
+        line-height: 0.9;
+      }
+      #iP3 { padding: 0 20px; gap: 0; }
+      .intro-close-logo { font-size: clamp(40px, 12vw, 80px); }
+      .intro-close-tag  { font-size: 9px; letter-spacing: 0.3em; }
+      #introSkip { bottom: 20px; right: 20px; padding: 8px 16px; font-size: 9px; }
+      #introProgress { height: 2px; }
+    }
+
+    @media (max-width: 480px) {
+      .intro-letter { font-size: clamp(56px, 22vw, 100px); }
+      .intro-cut-word { font-size: clamp(30px, 16vw, 64px); }
+      .intro-manifesto-line { font-size: clamp(36px, 14vw, 72px); }
+      #iP1 { gap: 0.01em; }
     }
 
   </style>
@@ -3338,6 +3670,79 @@
 
   <!-- HERO -->
   <section id="hero">
+
+    <!-- INTRO REEL 30s — dentro do hero -->
+    <div id="hazeIntro">
+      <div class="intro-phase active" id="iP1">
+        <span class="intro-letter" style="--d:0.05s">H</span>
+        <span class="intro-letter" style="--d:0.25s">A</span>
+        <span class="intro-letter" style="--d:0.45s">Z</span>
+        <span class="intro-letter" style="--d:0.65s">E</span>
+      </div>
+      <div class="intro-phase" id="iP2">
+        <span class="intro-cut-word">MEMÓRIA</span>
+        <span class="intro-cut-word">IMPACTO</span>
+        <span class="intro-cut-word">DESEJO</span>
+        <span class="intro-cut-word">SÍMBOLO</span>
+        <span class="intro-cut-word">ESSÊNCIA</span>
+        <span class="intro-cut-word">INCONFUNDÍVEL</span>
+        <span class="intro-cut-word">INEVITÁVEL</span>
+      </div>
+      <div class="intro-phase" id="iP3">
+        <div class="intro-manifesto-line" id="iml1">MARCAS</div>
+        <div class="intro-manifesto-line" id="iml2">FEITAS PARA</div>
+        <div class="intro-manifesto-line cyan" id="iml3">PERMANECER.</div>
+      </div>
+      <div id="introProgress"></div>
+      <button id="introSkip">Pular →</button>
+    </div>
+
+    <!-- Etheral Shadow Background -->
+    <div id="heroEtherealBg" aria-hidden="true">
+      <svg width="0" height="0" style="position:absolute;overflow:visible">
+        <defs>
+          <!-- Filtro idêntico ao componente original: dois feDisplacementMap -->
+          <filter id="etherFilter" x="-50%" y="-50%" width="200%" height="200%">
+            <feTurbulence
+              result="undulation"
+              numOctaves="2"
+              baseFrequency="0.0005,0.002"
+              seed="0"
+              type="turbulence"
+            />
+            <feColorMatrix
+              id="etherHue"
+              in="undulation"
+              type="hueRotate"
+              values="180"
+            />
+            <feColorMatrix
+              in="dist"
+              result="circulation"
+              type="matrix"
+              values="4 0 0 0 1  4 0 0 0 1  4 0 0 0 1  1 0 0 0 0"
+            />
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="circulation"
+              scale="100"
+              result="dist"
+            />
+            <feDisplacementMap
+              in="dist"
+              in2="undulation"
+              scale="100"
+              result="output"
+            />
+          </filter>
+        </defs>
+      </svg>
+      <div id="etherDisplace">
+        <div id="etherMask"></div>
+      </div>
+      <div id="etherNoise"></div>
+    </div>
+
     <!-- Background: orbs + grid -->
     <div class="hero-bg" aria-hidden="true">
 <div class="hero-orb hero-orb-1"></div>
@@ -3704,14 +4109,14 @@
       </div>
     </div>
     <div class="services-gallery" id="svcGallery">
-      <div class="svc-card"><img src="https://raw.githubusercontent.com/Viniwayne69/HAZE/main/servicos/k1.png" alt="Posicionamento de Marca — serviço de branding estratégico HAZE" draggable="false"/></div>
-      <div class="svc-card"><img src="https://raw.githubusercontent.com/Viniwayne69/HAZE/main/servicos/k2.png" alt="Identidade Visual — criação de identidade visual completa HAZE" draggable="false"/></div>
-      <div class="svc-card"><img src="https://raw.githubusercontent.com/Viniwayne69/HAZE/main/servicos/k3.png" alt="Direção Criativa — direção criativa para marcas HAZE" draggable="false"/></div>
-      <div class="svc-card"><img src="https://raw.githubusercontent.com/Viniwayne69/HAZE/main/servicos/k4.png" alt="Linguagem e Tom de Voz — desenvolvimento de voz de marca HAZE" draggable="false"/></div>
-      <div class="svc-card"><img src="https://raw.githubusercontent.com/Viniwayne69/HAZE/main/servicos/k5.png" alt="Estratégia de Comunicação — estratégia de comunicação de marca HAZE" draggable="false"/></div>
-      <div class="svc-card"><img src="https://raw.githubusercontent.com/Viniwayne69/HAZE/main/servicos/k6.png" alt="Presença Digital — posicionamento digital de marcas HAZE" draggable="false"/></div>
-      <div class="svc-card"><img src="https://raw.githubusercontent.com/Viniwayne69/HAZE/main/servicos/k7.png" alt="Campanhas Visuais — criação de campanhas visuais HAZE" draggable="false"/></div>
-      <div class="svc-card"><img src="https://raw.githubusercontent.com/Viniwayne69/HAZE/main/servicos/k8.png" alt="Percepção de Marca — gestão de percepção e posicionamento HAZE" draggable="false"/></div>
+      <div class="svc-card"><img src="https://raw.githubusercontent.com/Viniwayne69/HAZE/main/servicos/k1.png" alt="Posicionamento de Marca" draggable="false"/><div class="svc-overlay"><span>Posicionamento de Marca</span></div></div>
+      <div class="svc-card"><img src="https://raw.githubusercontent.com/Viniwayne69/HAZE/main/servicos/k2.png" alt="Identidade Visual" draggable="false"/><div class="svc-overlay"><span>Identidade Visual</span></div></div>
+      <div class="svc-card"><img src="https://raw.githubusercontent.com/Viniwayne69/HAZE/main/servicos/k3.png" alt="Direção Criativa" draggable="false"/><div class="svc-overlay"><span>Direção Criativa</span></div></div>
+      <div class="svc-card"><img src="https://raw.githubusercontent.com/Viniwayne69/HAZE/main/servicos/k4.png" alt="Linguagem e Tom de Voz" draggable="false"/><div class="svc-overlay"><span>Linguagem e Tom de Voz</span></div></div>
+      <div class="svc-card"><img src="https://raw.githubusercontent.com/Viniwayne69/HAZE/main/servicos/k5.png" alt="Estratégia de Comunicação" draggable="false"/><div class="svc-overlay"><span>Estratégia de Comunicação</span></div></div>
+      <div class="svc-card"><img src="https://raw.githubusercontent.com/Viniwayne69/HAZE/main/servicos/k6.png" alt="Presença Digital" draggable="false"/><div class="svc-overlay"><span>Presença Digital</span></div></div>
+      <div class="svc-card"><img src="https://raw.githubusercontent.com/Viniwayne69/HAZE/main/servicos/k7.png" alt="Campanhas Visuais" draggable="false"/><div class="svc-overlay"><span>Campanhas Visuais</span></div></div>
+      <div class="svc-card"><img src="https://raw.githubusercontent.com/Viniwayne69/HAZE/main/servicos/k8.png" alt="Percepção de Marca" draggable="false"/><div class="svc-overlay"><span>Percepção de Marca</span></div></div>
     </div>
   </section>
 
@@ -3838,6 +4243,15 @@
   <!-- PARTICLE TEXT -->
   <section id="pong-section">
     <canvas id="pong-canvas"></canvas>
+    <!-- Mobile fallback: CSS word cycle -->
+    <div id="pt-mobile" aria-hidden="true">
+      <span class="pt-mob-word">HAZE</span>
+      <span class="pt-mob-word">DESIGN</span>
+      <span class="pt-mob-word">LEGADO</span>
+      <span class="pt-mob-word">IDENTIDADE</span>
+      <span class="pt-mob-word">ESTRATÉGIA</span>
+      <span class="pt-mob-word">CRIAÇÃO</span>
+    </div>
   </section>
 
   <!-- MANIFESTO -->
@@ -3946,29 +4360,51 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-left">
-      <span class="footer-brand">HAZE</span>
-      <p class="footer-tagline">Marcas feitas para permanecer na mente e na cultura.</p>
-    </div>
-    <div class="footer-center">
-      <ul class="footer-nav">
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#servicos">Serviços</a></li>
-        <li><a href="#portfolio">Landing Pages</a></li>
-        <li><a href="#manifesto">Manifesto</a></li>
-        <li><a href="#contato">Contato</a></li>
-      </ul>
-    </div>
-    <div class="footer-right">
-      <div class="footer-socials">
-        <a href="https://instagram.com/hazeagencia" class="footer-social-link" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://wa.me/5516988589448" class="footer-social-link" target="_blank" rel="noopener">WhatsApp</a>
-        <a href="mailto:contato@hazeagencia.com" class="footer-social-link">E-mail</a>
+    <!-- CTA superior -->
+    <div class="footer-cta-row">
+      <div class="footer-cta-text">
+        <span class="footer-cta-eyebrow">Pronto para começar?</span>
+        <h2 class="footer-cta-headline">Sua marca<br><em>merece permanecer.</em></h2>
+      </div>
+      <div class="footer-cta-actions">
+        <a href="#portfolio" class="footer-btn-ghost">Ver projetos</a>
+        <a href="https://wa.me/5516988589448?text=Olá%2C+vim+pelo+site+da+HAZE" target="_blank" rel="noopener" class="footer-btn-solid">Falar com a HAZE</a>
       </div>
     </div>
+
+    <!-- Divisor -->
+    <div class="footer-divider"></div>
+
+    <!-- Grid principal -->
+    <div class="footer-grid">
+      <div class="footer-col">
+        <span class="footer-brand">HAZE</span>
+        <p class="footer-tagline">Marcas feitas para permanecer<br>na mente e na cultura.</p>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-label">Navegação</span>
+        <ul class="footer-nav">
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#portfolio">Portfólio</a></li>
+          <li><a href="#manifesto">Manifesto</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-label">Contato</span>
+        <ul class="footer-nav">
+          <li><a href="https://instagram.com/hazeagencia" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://wa.me/5516988589448" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="mailto:contato@hazeagencia.com">E-mail</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
     <div class="footer-bottom">
       <span class="footer-copy">© 2025 HAZE. Todos os direitos reservados</span>
-      <span class="footer-made">Branding &amp; Identidade Visual, Brasil</span>
+      <span class="footer-made">Branding &amp; Identidade Visual · Brasil</span>
     </div>
   </footer>
 
@@ -4230,6 +4666,7 @@
     // PARTICLE TEXT EFFECT
     // ========================
     (function initParticleText() {
+      if (window.innerWidth <= 768) return; // mobile usa CSS fallback
       const ptCanvas = document.getElementById('pong-canvas');
       if (!ptCanvas) return;
       const ptCtx = ptCanvas.getContext('2d');
@@ -5051,6 +5488,79 @@
         window._ptVisible = entries[0].isIntersecting;
       }, { threshold: 0.05 });
       obs.observe(section);
+    })();
+
+    // ========================
+    // HAZE INTRO REEL 30s
+    // ========================
+    (function initHazeIntro() {
+      const intro = document.getElementById('hazeIntro');
+      if (!intro) return;
+
+      function goPhase(id) {
+        document.querySelectorAll('.intro-phase').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+      }
+
+      function dismiss() {
+        intro.classList.add('dismiss');
+        setTimeout(() => intro.remove(), 1300);
+      }
+
+      // Phase 2 — quick cuts (5s–12s)
+      const cuts = document.querySelectorAll('.intro-cut-word');
+      let cutI = 0;
+      function runCut() {
+        if (cutI > 0) cuts[cutI - 1].classList.remove('flash');
+        if (cutI < cuts.length) {
+          cuts[cutI].classList.add('flash');
+          cutI++;
+          setTimeout(runCut, 680);
+        }
+      }
+
+      // Phase 3 — manifesto (12s–23s)
+      function runManifesto() {
+        ['iml1','iml2','iml3'].forEach((id, i) => {
+          setTimeout(() => {
+            const el = document.getElementById(id);
+            if (el) el.classList.add('show');
+          }, i * 900);
+        });
+      }
+
+      // Timeline
+      setTimeout(() => { goPhase('iP2'); runCut(); },       1800);
+      setTimeout(() => { goPhase('iP3'); runManifesto(); }, 6800);
+      setTimeout(dismiss,                                    11000);
+
+      document.getElementById('introSkip')
+        .addEventListener('click', dismiss);
+    })();
+
+    // ========================
+    // ETHERAL SHADOW ANIMATION
+    // ========================
+    (function initEtherealShadow() {
+      const hueEl = document.getElementById('etherHue');
+      if (!hueEl) return;
+
+      // Skip on reduced-motion preference
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      let hue = 0;
+      let lastTime = performance.now();
+      const cycleDuration = 5840; // ~speed:90 do componente original (animationDuration/25 ≈ 5.84s)
+
+      function tick(now) {
+        const delta = now - lastTime;
+        lastTime = now;
+        hue = (hue + 360 * delta / cycleDuration) % 360;
+        hueEl.setAttribute('values', String(hue.toFixed(2)));
+        requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
     })();
 
   </script>
