@@ -5412,6 +5412,7 @@
     // MAGNETIC CURSOR — BOTÕES
     // ========================
     (function initMagnetic() {
+      if (window.innerWidth <= 768) return; // desativa no mobile
       const targets = document.querySelectorAll('.hero-cta, .nav-cta, .haze-btn');
       targets.forEach(el => {
         el.addEventListener('mousemove', e => {
@@ -5449,6 +5450,7 @@
     // PARALLAX — HERO
     // ========================
     (function initHeroParallax() {
+      if (window.innerWidth <= 768) return; // desativa no mobile
       const title   = document.querySelector('.hero-title');
       const tagline = document.querySelector('.hero-tagline');
       const eyebrow = document.querySelector('.hero-eyebrow');
