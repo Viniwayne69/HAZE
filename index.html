@@ -4636,62 +4636,7 @@
       obs.observe(cards[0]);
     })();
 
-    // ========================
-    // GOOEY TEXT MORPH
-    // ========================
-    const words = ['Gestão', 'Presença', 'Tráfego', 'Resultado', 'Identidade', 'Crescimento'];
-    const MORPH_TIME    = 1.2;
-    const COOLDOWN_TIME = 0.35;
-
-    let wordIdx  = words.length - 1;
-    let morph    = 0;
-    let cooldown = COOLDOWN_TIME;
-    let lastTs   = Date.now();
-
-    const gt1 = document.getElementById('g-text1');
-    const gt2 = document.getElementById('g-text2');
-    gt1.textContent = words[wordIdx % words.length];
-    gt2.textContent = words[(wordIdx + 1) % words.length];
-
-    function setMorph(f) {
-      gt2.style.filter  = `blur(${Math.min(8 / f - 8, 100)}px)`;
-      gt2.style.opacity = `${Math.pow(f, 0.4) * 100}%`;
-      const g = 1 - f;
-      gt1.style.filter  = `blur(${Math.min(8 / g - 8, 100)}px)`;
-      gt1.style.opacity = `${Math.pow(g, 0.4) * 100}%`;
-    }
-
-    function cooldownSnap() {
-      morph = 0;
-      gt2.style.filter  = '';
-      gt2.style.opacity = '100%';
-      gt1.style.filter  = '';
-      gt1.style.opacity = '0%';
-    }
-
-    (function gooeyLoop() {
-      requestAnimationFrame(gooeyLoop);
-      const now = Date.now();
-      const dt  = (now - lastTs) / 1000;
-      lastTs = now;
-      const shouldIncrement = cooldown > 0;
-      cooldown -= dt;
-
-      if (cooldown <= 0) {
-        if (shouldIncrement) {
-          wordIdx = (wordIdx + 1) % words.length;
-          gt1.textContent = words[wordIdx % words.length];
-          gt2.textContent = words[(wordIdx + 1) % words.length];
-        }
-        morph -= cooldown;
-        cooldown = 0;
-        let f = morph / MORPH_TIME;
-        if (f > 1) { cooldown = COOLDOWN_TIME; f = 1; }
-        setMorph(f);
-      } else {
-        cooldownSnap();
-      }
-    })();
+    // GOOEY TEXT MORPH — seção removida, JS desativado
 
     // ========================
     // PARTICLE TEXT EFFECT
