@@ -3621,6 +3621,7 @@
     }
 
   </style>
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
 </head>
 <body>
 
@@ -4006,7 +4007,7 @@
   <!-- SPLINE / ROBOT -->
   <section id="spline-section">
     <div class="spline-overlay"></div>
-    <spline-viewer id="splineViewer" data-url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"></spline-viewer>
+    <spline-viewer id="splineViewer" url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"></spline-viewer>
     <div class="spline-text">
       <p class="spline-text-label">Estratégia + Estética</p>
       <h2 class="spline-text-headline">Construímos marcas que<br>as pessoas reconhecem e desejam</h2>
@@ -5555,35 +5556,7 @@
       obs.observe(quote);
     })();
 
-    // ========================
-    // LAZY LOAD — SPLINE VIEWER
-    // Só carrega o script 3D quando o usuário está prestes a ver a seção
-    // ========================
-    (function initSplineLazy() {
-      const section = document.getElementById('spline-section');
-      const viewer  = document.getElementById('splineViewer');
-      if (!section || !viewer) return;
-
-      let loaded = false;
-      const obs = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && !loaded) {
-          loaded = true;
-          obs.disconnect();
-          const script  = document.createElement('script');
-          script.type   = 'module';
-          script.src    = 'https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js';
-          script.onload = () => {
-            viewer.setAttribute('url', viewer.dataset.url);
-            // Dispara o posicionamento do balão após o viewer carregar
-            viewer.addEventListener('load', () => {
-              if (typeof positionHazeInvite === 'function') positionHazeInvite();
-            }, { once: true });
-          };
-          document.head.appendChild(script);
-        }
-      }, { rootMargin: '300px' }); // começa a carregar 300px antes de entrar na tela
-      obs.observe(section);
-    })();
+    // Spline viewer loaded directly in <head>
 
     // ========================
     // PAUSA PARTICLE QUANDO FORA DO VIEWPORT
