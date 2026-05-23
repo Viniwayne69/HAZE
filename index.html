@@ -294,6 +294,19 @@
 
     .hero-slide::before { display: none; }
 
+    /* ── BACKGROUNDS DESKTOP ── */
+    #slide-1 { background-image: url('assets/Imagens de fundo do site para pc/fundo do site.png'); }
+    #slide-2 { background-image: url('assets/Imagens de fundo do site para pc/fundo 2 do site.png'); }
+    #slide-3 { background-image: url('assets/Imagens de fundo do site para pc/fundo 3 do site.png'); }
+
+    /* ── BACKGROUNDS MOBILE ── */
+    @media (max-width: 767px) {
+      #slide-1 { background-image: url('assets/Imagens de fundo do site para mobile/fundo do site para mobile 1.png'); }
+      #slide-2 { background-image: url('assets/Imagens de fundo do site para mobile/fundo do site para mobile 2.png'); }
+      #slide-3 { background-image: url('assets/Imagens de fundo do site para mobile/fundo do site para mobile 3.png'); }
+      #spline-section { background-image: url('assets/Imagens de fundo do site para mobile/fundo do robo do site para mobile.png'); background-size: cover; background-position: center; }
+    }
+
     .hero-content {
       position: relative;
       z-index: 2;
@@ -3751,7 +3764,7 @@
     </div>
 
     <!-- SLIDE 1 -->
-    <div class="hero-slide active" style="background-image: url('assets/fundo%20do%20site.png')">
+    <div id="slide-1" class="hero-slide active"">
       <div class="hero-content">
         <p class="hero-tagline">Soluções Digitais</p>
         <div class="hero-cta-wrap">
@@ -3762,7 +3775,7 @@
     </div>
 
     <!-- SLIDE 2 -->
-    <div class="hero-slide" style="background-image: url('assets/fundo%202%20do%20site.png')">
+    <div id="slide-2" class="hero-slide"">
       <div class="hero-content">
         <p class="hero-tagline">Soluções Digitais</p>
         <div class="hero-cta-wrap">
@@ -3773,7 +3786,7 @@
     </div>
 
     <!-- SLIDE 3 -->
-    <div class="hero-slide" style="background-image: url('assets/fundo%203%20do%20site.png')">
+    <div id="slide-3" class="hero-slide"">
       <div class="hero-content">
         <p class="hero-tagline">Soluções Digitais</p>
         <div class="hero-cta-wrap">
