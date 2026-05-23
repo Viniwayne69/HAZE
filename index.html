@@ -316,19 +316,11 @@
       pointer-events: auto;
     }
 
-    /* sem overlay na imagem — contraste vem pelo text-shadow e backdrop no conteúdo */
     .hero-slide::before { display: none; }
 
     .hero-content {
       position: relative;
       z-index: 2;
-      /* fundo difuso só atrás do bloco de texto, imagem de fundo intacta */
-      background: rgba(0, 0, 0, 0.28);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      padding: 36px 44px;
-      border-radius: 12px;
-      max-width: 560px;
     }
 
     /* ── DOTS ── */
@@ -376,25 +368,32 @@
       text-align: left;
       text-transform: uppercase;
       max-width: 55vw;
-      text-shadow: 0 2px 16px rgba(0,0,0,0.7);
+      text-shadow:
+        0 0 8px  rgba(0,0,0,1),
+        0 2px 20px rgba(0,0,0,0.95),
+        0 4px 40px rgba(0,0,0,0.8);
     }
 
     .hero-title .accent {
       color: var(--ciano);
       display: block;
-      text-shadow: 0 2px 20px rgba(0,0,0,0.6);
+      text-shadow:
+        0 0 8px  rgba(0,0,0,1),
+        0 2px 20px rgba(0,0,0,0.9);
     }
 
     .hero-tagline {
       font-size: clamp(13px, 1.1vw, 17px);
-      font-weight: 400;
+      font-weight: 600;
       letter-spacing: 0.04em;
       text-transform: none;
-      color: rgba(255,255,255,0.92);
+      color: #ffffff;
       margin-top: 20px;
       max-width: 460px;
       line-height: 1.65;
-      text-shadow: 0 1px 8px rgba(0,0,0,0.8);
+      text-shadow:
+        0 0 6px  rgba(0,0,0,1),
+        0 2px 12px rgba(0,0,0,1);
     }
 
     .hero-cta-wrap {
