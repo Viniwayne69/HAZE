@@ -316,12 +316,12 @@
       pointer-events: auto;
     }
 
-    /* gradiente escurece à esquerda (texto) e abre à direita (imagem) */
+    /* gradiente leve — só o suficiente para o texto ser legível */
     .hero-slide::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.48) 50%, rgba(0,0,0,0.08) 100%);
+      background: linear-gradient(to right, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.2) 45%, rgba(0,0,0,0) 100%);
       pointer-events: none;
     }
 
