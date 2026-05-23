@@ -112,16 +112,15 @@
        CURSOR
     ======================== */
     .cursor {
-      width: 18px;
-      height: 22px;
+      width: 22px;
+      height: 28px;
       background: var(--ciano);
-      clip-path: polygon(50% 100%, 0% 48%, 34% 48%, 34% 0%, 66% 0%, 66% 48%, 100% 48%);
+      clip-path: polygon(0% 0%, 0% 80%, 28% 57%, 44% 100%, 58% 93%, 43% 51%, 72% 51%);
       border-radius: 0;
       position: fixed;
       pointer-events: none;
       z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s, opacity 0.2s;
+      transform: translate(0, 0);
       mix-blend-mode: normal;
     }
 
@@ -4536,22 +4535,6 @@
       requestAnimationFrame(ringLoop);
     })();
 
-    document.querySelectorAll('a, button, .service-item, .pillar, .value-item').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width  = '10px';
-        cursor.style.height = '10px';
-        cursorRing.style.width  = '48px';
-        cursorRing.style.height = '48px';
-        cursorRing.style.borderColor = 'rgba(255,255,255,0.6)';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width  = '6px';
-        cursor.style.height = '6px';
-        cursorRing.style.width  = '30px';
-        cursorRing.style.height = '30px';
-        cursorRing.style.borderColor = 'rgba(255,255,255,0.35)';
-      });
-    });
 
     // ========================
     // MOBILE MENU
