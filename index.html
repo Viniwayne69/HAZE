@@ -5281,15 +5281,13 @@
     (function initLoader() {
       const loader = document.getElementById('page-loader');
       if (!loader) return;
-      // Dismissar após 2.4s independente do load
       function dismissLoader() {
         loader.classList.add('done');
       }
-      const t = setTimeout(dismissLoader, 2400);
-      window.addEventListener('load', () => {
-        clearTimeout(t);
-        setTimeout(dismissLoader, 400);
-      });
+      // Dismissar em 1.2s sempre, sem esperar window.load
+      setTimeout(dismissLoader, 1200);
+      // Fallback imediato se a página já carregou
+      if (document.readyState === 'complete') dismissLoader();
     })();
 
     // ========================
