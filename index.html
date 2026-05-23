@@ -105,28 +105,13 @@
       color: var(--white);
       font-family: var(--font-body);
       overflow-x: hidden;
-      cursor: none;
+      cursor: auto;
     }
 
     /* ========================
        CURSOR
     ======================== */
-    .cursor {
-      width: 22px;
-      height: 28px;
-      background: var(--ciano);
-      clip-path: polygon(0% 0%, 0% 80%, 28% 57%, 44% 100%, 58% 93%, 43% 51%, 72% 51%);
-      border-radius: 0;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(0, 0);
-      mix-blend-mode: normal;
-    }
-
-    .cursor-ring {
-      display: none;
-    }
+    .cursor, .cursor-ring { display: none !important; }
 
     body:hover .cursor { opacity: 1; }
 
@@ -170,7 +155,7 @@
       position: relative;
       overflow: hidden;
       height: 1.2em;
-      cursor: none;
+      cursor: auto;
     }
 
     .nav-link a .roll-top,
@@ -204,7 +189,7 @@
       border: 1px solid rgba(24,183,196,0.35);
       padding: 10px 20px;
       transition: border-color 0.3s, background 0.3s, color 0.3s;
-      cursor: none;
+      cursor: auto;
     }
 
     .nav-cta:hover {
@@ -219,7 +204,7 @@
       gap: 5px;
       background: none;
       border: none;
-      cursor: none;
+      cursor: auto;
       padding: 4px;
     }
 
@@ -271,7 +256,7 @@
       border: none;
       color: rgba(255,255,255,0.72);
       font-size: 28px;
-      cursor: none;
+      cursor: auto;
       font-weight: 300;
     }
 
@@ -409,7 +394,7 @@
       text-decoration: none;
       padding: 20px 44px;
       border: 1px solid transparent;
-      cursor: none;
+      cursor: auto;
       transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
     }
 
@@ -1498,7 +1483,7 @@
       overflow: hidden;
       position: relative;
       transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease;
-      cursor: none;
+      cursor: auto;
     }
 
     .svc-card:hover {
@@ -1974,7 +1959,7 @@
       padding-bottom: 3px;
       border-bottom: 1px solid rgba(255,255,255,0.25);
       transition: border-color 0.3s, gap 0.3s;
-      cursor: none;
+      cursor: auto;
     }
 
     .contact-link:hover {
@@ -2788,7 +2773,7 @@
       padding: 16px 28px;
       border: 1px solid var(--ciano);
       transition: background 0.3s, border-color 0.3s, gap 0.3s, color 0.3s;
-      cursor: none;
+      cursor: auto;
     }
     .cta-primary:hover {
       background: transparent;
@@ -2810,7 +2795,7 @@
       padding: 16px 0;
       border-bottom: 1px solid rgba(255,255,255,0.18);
       transition: color 0.3s, border-color 0.3s, gap 0.3s;
-      cursor: none;
+      cursor: auto;
     }
     .cta-secondary:hover {
       color: var(--ciano);
@@ -3012,7 +2997,7 @@
       text-transform: uppercase;
       border: 1px solid rgba(255,255,255,0.15);
       transition: background 0.3s, transform 0.3s, gap 0.3s;
-      cursor: none;
+      cursor: auto;
       opacity: 0;
       animation: fadeUp 0.8s ease 3s forwards;
     }
@@ -3107,7 +3092,7 @@
       border: 1px solid rgba(255,255,255,0.2);
       text-decoration: none;
       transition: border-color 0.3s, color 0.3s;
-      cursor: none;
+      cursor: auto;
     }
     .footer-btn-ghost:hover {
       border-color: rgba(255,255,255,0.6);
@@ -3126,7 +3111,7 @@
       background: #18B7C4;
       text-decoration: none;
       transition: background 0.3s, transform 0.25s cubic-bezier(0.22,1,0.36,1);
-      cursor: none;
+      cursor: auto;
     }
     .footer-btn-solid:hover {
       background: #22d4e2;
@@ -3187,7 +3172,7 @@
       color: rgba(255,255,255,0.55);
       text-decoration: none;
       transition: color 0.3s;
-      cursor: none;
+      cursor: auto;
     }
     .footer-nav a:hover { color: white; }
 
