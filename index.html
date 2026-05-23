@@ -289,30 +289,73 @@
     ======================== */
     #hero {
       min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      background: var(--black);
+    }
+
+    /* ── SLIDES ── */
+    .hero-slide {
+      position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
-      position: relative;
       padding: 0 8vw;
-      overflow: hidden;
-      background: var(--black);
-      background-image: url('assets/fundo%202%20do%20site.png');
       background-size: cover;
       background-position: center right;
       background-repeat: no-repeat;
-    }
-
-    /* gradiente — escurece a esquerda (texto legível) e abre à direita (imagem respira) */
-    #hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.08) 100%);
-      z-index: 0;
+      opacity: 0;
+      transition: opacity 1.2s ease;
       pointer-events: none;
     }
 
+    .hero-slide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* gradiente escurece à esquerda (texto) e abre à direita (imagem) */
+    .hero-slide::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.48) 50%, rgba(0,0,0,0.08) 100%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ── DOTS ── */
+    .hero-dots {
+      position: absolute;
+      bottom: 100px;
+      left: 8vw;
+      display: flex;
+      gap: 10px;
+      z-index: 20;
+    }
+
+    .hero-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.45);
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .hero-dot.active {
+      background: var(--ciano);
+      border-color: var(--ciano);
+    }
+
+    /* ── TEXTO ── */
     .hero-eyebrow {
       font-size: 11px;
       font-weight: 700;
@@ -320,10 +363,6 @@
       text-transform: uppercase;
       color: var(--ciano);
       margin-bottom: 20px;
-      opacity: 0;
-      animation: fadeUp 1s ease 0.3s forwards;
-      position: relative;
-      z-index: 2;
     }
 
     .hero-title {
@@ -333,13 +372,8 @@
       letter-spacing: -0.01em;
       line-height: 1.0;
       color: white;
-      text-shadow: none;
-      opacity: 0;
-      animation: blurFadeIn 1.2s ease 0.5s forwards;
       text-align: left;
       text-transform: uppercase;
-      position: relative;
-      z-index: 2;
       max-width: 55vw;
     }
 
@@ -351,25 +385,19 @@
     .hero-tagline {
       font-size: clamp(13px, 1.1vw, 17px);
       font-weight: 400;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
       text-transform: none;
-      color: rgba(255,255,255,0.75);
-      margin-top: 22px;
-      opacity: 0;
-      animation: fadeUp 1s ease 1s forwards;
-      max-width: 480px;
-      line-height: 1.6;
-      position: relative;
-      z-index: 2;
+      color: rgba(255,255,255,0.78);
+      margin-top: 20px;
+      max-width: 460px;
+      line-height: 1.65;
     }
 
     .hero-cta-wrap {
       display: flex;
       gap: 16px;
       justify-content: flex-start;
-      margin-top: 44px;
-      opacity: 0;
-      animation: fadeUp 1s ease 1.4s forwards;
+      margin-top: 40px;
       position: relative;
       z-index: 2;
     }
@@ -3759,22 +3787,42 @@
       <div id="etherNoise"></div>
     </div>
 
-    <!-- Background: orbs + grid -->
-    <div class="hero-bg" aria-hidden="true">
-<div class="hero-orb hero-orb-1"></div>
-      <div class="hero-orb hero-orb-2"></div>
-      <div class="hero-orb hero-orb-3"></div>
+    <!-- SLIDE 1 -->
+    <div class="hero-slide active" style="background-image: url('assets/fundo%20do%20site.png')">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Soluções Digitais para o Comércio Local</p>
+        <h1 class="hero-title">
+          ELEVE SEU
+          <span class="accent">NEGÓCIO</span>
+        </h1>
+        <p class="hero-tagline">Do financeiro à vitrine, tudo o que o seu negócio precisa para crescer.</p>
+        <div class="hero-cta-wrap">
+          <a class="hero-cta primary" href="#servicos">Conhecer as soluções</a>
+          <a class="hero-cta ghost" href="https://wa.me/5516988589448?text=Olá%2C+vim+pelo+site+da+HAZE+e+quero+saber+mais" target="_blank" rel="noopener">Falar com a HAZE</a>
+        </div>
+      </div>
     </div>
-    <p class="hero-eyebrow">Soluções Digitais para o Comércio Local</p>
-    <h1 class="hero-title">
-      ELEVE SEU
-      <span class="accent">NEGÓCIO</span>
-    </h1>
-    <p class="hero-tagline">Do financeiro à vitrine, tudo o que o seu negócio precisa para crescer.</p>
 
-    <div class="hero-cta-wrap">
-      <a class="hero-cta primary" href="#servicos">Conhecer as soluções</a>
-      <a class="hero-cta ghost" href="https://wa.me/5516988589448?text=Olá%2C+vim+pelo+site+da+HAZE+e+quero+saber+mais" target="_blank" rel="noopener">Falar com a HAZE</a>
+    <!-- SLIDE 2 -->
+    <div class="hero-slide" style="background-image: url('assets/fundo%202%20do%20site.png')">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Soluções Digitais para o Comércio Local</p>
+        <h1 class="hero-title">
+          GESTÃO
+          <span class="accent">DIGITAL</span>
+        </h1>
+        <p class="hero-tagline">Controle financeiro, presença online e identidade visual em um único ecossistema.</p>
+        <div class="hero-cta-wrap">
+          <a class="hero-cta primary" href="#servicos">Conhecer as soluções</a>
+          <a class="hero-cta ghost" href="https://wa.me/5516988589448?text=Olá%2C+vim+pelo+site+da+HAZE+e+quero+saber+mais" target="_blank" rel="noopener">Falar com a HAZE</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOTS -->
+    <div class="hero-dots">
+      <span class="hero-dot active"></span>
+      <span class="hero-dot"></span>
     </div>
 
     <!-- Parceiros no hero -->
@@ -5629,6 +5677,36 @@
     })();
 
     // Etheral Shadow — estático (zero rAF, browser cacheia o filtro SVG uma vez)
+
+    /* ── HERO CAROUSEL ── */
+    (function() {
+      const slides = document.querySelectorAll('.hero-slide');
+      const dots   = document.querySelectorAll('.hero-dot');
+      let current  = 0;
+      let timer;
+
+      function goTo(n) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (n + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+      }
+
+      function start() {
+        timer = setInterval(() => goTo(current + 1), 5000);
+      }
+
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+          clearInterval(timer);
+          goTo(i);
+          start();
+        });
+      });
+
+      start();
+    })();
 
   </script>
 
