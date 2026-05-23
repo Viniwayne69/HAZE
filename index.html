@@ -2585,7 +2585,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity 1s cubic-bezier(0.76,0,0.24,1), visibility 1s;
+      opacity: 1;
+      animation: loaderAutoDismiss 2s ease 0s 1 normal forwards;
+    }
+    @keyframes loaderAutoDismiss {
+      0%   { opacity: 1; visibility: visible; pointer-events: auto; }
+      65%  { opacity: 1; visibility: visible; pointer-events: auto; }
+      100% { opacity: 0; visibility: hidden;  pointer-events: none; }
     }
     #page-loader.done {
       opacity: 0;
