@@ -300,11 +300,11 @@
       inset: 0;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 0 8vw;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 120px;
       background-size: cover;
-      background-position: center right;
+      background-position: center;
       background-repeat: no-repeat;
       opacity: 0;
       transition: opacity 1.2s ease;
@@ -326,8 +326,9 @@
     /* ── DOTS ── */
     .hero-dots {
       position: absolute;
-      bottom: 100px;
-      left: 8vw;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
       gap: 10px;
       z-index: 20;
@@ -383,24 +384,25 @@
     }
 
     .hero-tagline {
-      font-size: clamp(13px, 1.1vw, 17px);
+      font-size: clamp(14px, 1.2vw, 18px);
       font-weight: 600;
       letter-spacing: 0.04em;
       text-transform: none;
       color: #ffffff;
-      margin-top: 20px;
-      max-width: 460px;
+      margin-top: 0;
+      max-width: 560px;
       line-height: 1.65;
+      text-align: center;
       text-shadow:
-        0 0 6px  rgba(0,0,0,1),
-        0 2px 12px rgba(0,0,0,1);
+        0 0 8px  rgba(0,0,0,1),
+        0 2px 14px rgba(0,0,0,1);
     }
 
     .hero-cta-wrap {
       display: flex;
       gap: 16px;
-      justify-content: flex-start;
-      margin-top: 40px;
+      justify-content: center;
+      margin-top: 20px;
       position: relative;
       z-index: 2;
     }
@@ -3793,11 +3795,6 @@
     <!-- SLIDE 1 -->
     <div class="hero-slide active" style="background-image: url('assets/fundo%20do%20site.png')">
       <div class="hero-content">
-        <p class="hero-eyebrow">Soluções Digitais para o Comércio Local</p>
-        <h1 class="hero-title">
-          ELEVE SEU
-          <span class="accent">NEGÓCIO</span>
-        </h1>
         <p class="hero-tagline">Do financeiro à vitrine, tudo o que o seu negócio precisa para crescer.</p>
         <div class="hero-cta-wrap">
           <a class="hero-cta primary" href="#servicos">Conhecer as soluções</a>
@@ -3809,11 +3806,6 @@
     <!-- SLIDE 2 -->
     <div class="hero-slide" style="background-image: url('assets/fundo%202%20do%20site.png')">
       <div class="hero-content">
-        <p class="hero-eyebrow">Soluções Digitais para o Comércio Local</p>
-        <h1 class="hero-title">
-          GESTÃO
-          <span class="accent">DIGITAL</span>
-        </h1>
         <p class="hero-tagline">Controle financeiro, presença online e identidade visual em um único ecossistema.</p>
         <div class="hero-cta-wrap">
           <a class="hero-cta primary" href="#servicos">Conhecer as soluções</a>
