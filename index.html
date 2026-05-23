@@ -297,6 +297,20 @@
       padding: 0 56px;
       overflow: hidden;
       background: var(--black);
+      background-image: url('assets/fundo%20do%20site.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* overlay escuro para manter texto legível */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 0;
+      pointer-events: none;
     }
 
     .hero-eyebrow {
@@ -2221,11 +2235,7 @@
        ETHERAL SHADOW — hero bg
     ======================== */
     #heroEtherealBg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-      pointer-events: none;
+      display: none;
     }
     #etherDisplace {
       position: absolute;
